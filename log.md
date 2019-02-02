@@ -1,5 +1,17 @@
 # Log
 
+### 2019-02-01
+
+Looking at the [Angular tutorial for heroes](https://angular.io/tutorial/toh-pt1), seems pretty helpful. I'll start remembering at some point I'm sure...
+
+Got through "1. the hero editor", and also am using `ng serve` to run the web app while I develop the code. Eventually I'll roll it into a desktop app, but for now this is fine.
+
+Next step, figure out how to get the database up and running. Should be fun!
+
+- Look at database modules for Node, what's easy to implement
+- Learn how to make service, incorporate in angular app
+- Keep on going! Add people, make bequests and people link up, etc.
+
 ### 2019-01-26
 
 Hello! Sitting on the couch in my apartment in Arlington. I've been thinking about making a little app to better view/edit the Bequests spreadsheet that I'm in charge of. Some things I want to do:
