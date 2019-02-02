@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Bequest } from './bequest';
-import { Database } from 'sqlite3';
 import { BEQUESTS } from './mock-bequests';
 
 @Injectable({

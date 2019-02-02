@@ -1,5 +1,7 @@
 <ul class="bequests">
   <li *ngFor="let bequest of bequests">
+    <h2>{{bequest.name}}</h2>
+    <p>{{bequest.desc}}</p>
     <div class="bequest">
       <label>name:
         <input type="text" [(ngModel)]="bequest.name" placeholder="name">
