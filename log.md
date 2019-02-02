@@ -1,5 +1,12 @@
 # Log
 
+### 2019-02-02
+
+Things to think about:
+
+- Make a bequests component for all bequests? Or just one?
+- Also go back and check out messageServices at some point...
+
 ### 2019-02-01
 
 Looking at the [Angular tutorial for heroes](https://angular.io/tutorial/toh-pt1), seems pretty helpful. I'll start remembering at some point I'm sure...

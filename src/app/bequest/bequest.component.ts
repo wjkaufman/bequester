@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Bequest } from '../bequest';
+import { BequestService } from '../bequest.service';
 
 @Component({
   selector: 'app-bequest',
@@ -8,16 +9,16 @@ import { Bequest } from '../bequest';
 })
 export class BequestComponent implements OnInit {
   
-  bequest: Bequest = {
-    id: 1,
-    name: 'H150 betting shirt',
-    description: '',
-    dateCreated: new Date('2019-01-01')
+  bequests: Bequest[];
+  
+  getBequests(): void {
+    this.bequests = this.bequestService.getBequests();
   }
 
-  constructor() { }
+  constructor(private bequestService: BequestService) { }
 
   ngOnInit() {
+    this.getBequests();
   }
 
 }

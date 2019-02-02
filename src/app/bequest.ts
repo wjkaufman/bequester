@@ -1,6 +1,6 @@
 export class Bequest {
   id: number;
   name: string;
-  description: string;
+  desc: string;
   dateCreated: Date
 }
