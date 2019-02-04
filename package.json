@@ -4,7 +4,7 @@
   "main": "electron/dist/main.js",
   "scripts": {
     "ng": "ng",
-    "electron": "ng build --base-href ./ && tsc --p electron && electron .",
+    "electron": "ng build --base-href ./ && tsc --p electron/ && electron .",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",

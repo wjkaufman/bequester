@@ -12,7 +12,14 @@ export class BequestComponent implements OnInit {
   bequests: Bequest[];
   
   getBequests(): void {
-    this.bequests = this.bequestService.getBequests();
+    this.bequestService.getBequests()
+      .then((res) => {
+        this.bequests = res;
+      })
+      .catch((err) => {
+        console.error('whoops, error here!');
+        console.error(err)
+      })
   }
 
   constructor(private bequestService: BequestService) { }

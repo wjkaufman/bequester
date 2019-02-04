@@ -18,6 +18,10 @@ Ok, I've satisfied myself for tonight. I tried installing sqlite3, rebuilding fo
 
 That didn't work, but [found this tutorial](https://malcoded.com/posts/angular-desktop-electron) which might be gold!
 
+Got electron set up in typescript (always nice to be consistent), now looking into IPC for Electron...
+
+Ok, stopping at "Using IPC in Angular to communicate with the main process" for now, but I think this is going to work really well!
+
 ### 2019-02-02
 
 Things to think about:

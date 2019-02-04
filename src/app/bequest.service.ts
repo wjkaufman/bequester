@@ -1,20 +1,37 @@
 import { Injectable } from '@angular/core';
 import { Bequest } from './bequest';
-import { BEQUESTS } from './mock-bequests';
+import { IpcRenderer } from 'electron';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BequestService {
   
-  getBequests(): Bequest[] {
+  private ipc: IpcRenderer;
+  
+  async getBequests() {
     
-    // TODO logic to get bequests from server
+    return new Promise<Bequest[]>((resolve, reject) => {
+      this.ipc.once('getBequestsResponse', (event, arg) => {
+        console.log('in service, resolving arg...')
+        resolve(arg);
+      });
+      this.ipc.send('getBequests');
+    });
     
-    return BEQUESTS;
   }
 
   constructor() {
-    
+    if ((<any>window).require) {
+      try {
+        this.ipc = (<any>window).require('electron').ipcRenderer;
+        console.log('success loading ipc thing');
+        console.log(this.ipc);
+      } catch (error) {
+        throw error;
+      }
+    } else {
+      console.warn('Could not load electron ipc');
+    }
   }
 }
