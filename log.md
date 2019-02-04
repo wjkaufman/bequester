@@ -1,5 +1,23 @@
 # Log
 
+### 2019-02-03
+
+Against my better judgement, I'm going to try to get sqlite3 to work now. Wish me luck... (it's 21:19 and I'm in bed with the lights off, but I can't stop thinking about the app working...)
+
+Ok, I've satisfied myself for tonight. I tried installing sqlite3, rebuilding for electron, then importing in the `main.js` file. That seemed to work like a charm. Now I'm trying to see if I can do the same in the bequest component ts file (I shouldn't be able to, but want to make sure). To do:
+
+- Figure out error:
+  ```
+  ERROR in src/app/bequest/bequest.component.ts(4,15): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i @types/node` and then add `node` to the types field in your tsconfig.
+  ```
+    - possibly install the type definitions for node or something
+    - maybe also for sqlite3
+- If angular successfully imports sqlite3, then great
+- If not, figure out how to get angular to talk to the main process so I can access the database
+- Continue...
+
+That didn't work, but [found this tutorial](https://malcoded.com/posts/angular-desktop-electron) which might be gold!
+
 ### 2019-02-02
 
 Things to think about:
