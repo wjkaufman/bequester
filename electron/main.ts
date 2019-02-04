@@ -1,8 +1,8 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
+import { ipcDatabase } from './ipcDatabase';
 import * as path from 'path';
 import * as url from 'url';
 import * as sqlite3 from 'sqlite3';
-import { BEQUESTS } from './mock-bequests';
 
 let win: BrowserWindow;
 
@@ -23,6 +23,8 @@ function createWindow() {
 
   // The following is optional and will open the DevTools:
   win.webContents.openDevTools()
+  
+  ipcDatabase(ipcMain, win);
   
   win.on("closed", () => {
     win = null;
@@ -65,11 +67,5 @@ db.serialize(function() {
 
 db.close();
 
-// IPC stuff
-
-ipcMain.on('getBequests', (event, arg) => {
-  // TODO do sql stuff here
-  const bequests = BEQUESTS; // eventually the result of the query
-  console.log('in main, got getBequests, sending bequests now')
-  win.webContents.send('getBequestsResponse', bequests);
-});
+// ipc stuff
+// should work
