@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "ng",
     "electron": "ng build --base-href ./ && tsc --p electron/ && electron .",
+    "populate": "node db-populate.js",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",

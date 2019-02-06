@@ -24,14 +24,12 @@ function createWindow() {
   // The following is optional and will open the DevTools:
   win.webContents.openDevTools()
   
-  ipcDatabase(ipcMain, win);
+  ipcDatabase(ipcMain, win, db);
   
   win.on("closed", () => {
     win = null;
   });
 }
-
-app.on("ready", createWindow);
 
 // on macOS, closing the window doesn't quit the app
 app.on("window-all-closed", () => {
@@ -49,23 +47,24 @@ app.on("activate", () => {
 
 // database stuff
 
-var db = new sqlite3.Database('./test.db');
+var db = new sqlite3.Database('./lonepine.db');
 
-db.serialize(function() {
-  // db.run("CREATE TABLE lorem (info TEXT)");
-  //
-  // var stmt = db.prepare("INSERT INTO lorem VALUES (?)");
-  // for (var i = 0; i < 10; i++) {
-  //     stmt.run("Ipsum " + i);
-  // }
-  // stmt.finalize();
+// db.serialize(function() {
+//   // db.run("CREATE TABLE lorem (info TEXT)");
+//   //
+//   // var stmt = db.prepare("INSERT INTO lorem VALUES (?)");
+//   // for (var i = 0; i < 10; i++) {
+//   //     stmt.run("Ipsum " + i);
+//   // }
+//   // stmt.finalize();
+//
+//   db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
+//       console.log(row.id + ": " + row.info);
+//   });
+// });
+//
+// db.close();
 
-  db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
-      console.log(row.id + ": " + row.info);
-  });
-});
+// finally, create window when ready
 
-db.close();
-
-// ipc stuff
-// should work
+app.on("ready", createWindow);
