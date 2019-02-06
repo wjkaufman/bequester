@@ -10,7 +10,6 @@ export class BequestService {
   private ipc: IpcRenderer;
   
   async getBequests() {
-    
     return new Promise<Bequest[]>((resolve, reject) => {
       this.ipc.once('getBequestsResponse', (event, arg) => {
         console.log('in service, resolving arg...')
@@ -18,7 +17,6 @@ export class BequestService {
       });
       this.ipc.send('getBequests');
     });
-    
   }
 
   constructor() {

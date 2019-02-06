@@ -1,5 +1,9 @@
 # Log
 
+### 2019-02-06
+
+Picking it up, working on the database right now... Might look into formatting/angular stuff later, like views (so I can look at people too!).
+
 ### 2019-02-03
 
 Against my better judgement, I'm going to try to get sqlite3 to work now. Wish me luck... (it's 21:19 and I'm in bed with the lights off, but I can't stop thinking about the app working...)
