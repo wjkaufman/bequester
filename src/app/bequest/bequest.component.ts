@@ -17,7 +17,6 @@ export class BequestComponent implements OnInit {
         this.bequests = res;
       })
       .catch((err) => {
-        console.error('whoops, error here!');
         console.error(err)
       })
   }

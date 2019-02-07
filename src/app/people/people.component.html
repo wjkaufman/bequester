@@ -1,0 +1,7 @@
+<ul class="people">
+  <li *ngFor="let person of people" (click)="onSelect(person)">
+    <p>{{person.firstname}} {{person.lastname}} ({{person.gradYear}})</p>
+  </li>
+</ul>
+
+<app-person [person]="selectedPerson"></app-person>

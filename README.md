@@ -5,6 +5,7 @@
 - Create database setup, incorporate into app
 - add timeouts, request IDs for database stuff (so it works well...)
 - Make components for people, connect bequests and people
+- Separate bequest (or bequestDetail) and bequestlist
 - Add import/export functionality so I can include spreadsheet, export lists of bequests, etc.
 - Make everything pretty with bootstrap
 - ...

@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Bequest } from './bequest';
+import { Person } from './person';
 import { IpcRenderer } from 'electron';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BequestService {
+export class PersonService {
   
   private ipc: IpcRenderer;
   
-  async getBequests() {
-    return new Promise<Bequest[]>((resolve, reject) => {
-      this.ipc.once('getBequestsResponse', (event, arg) => {
+  async getPeople() {
+    return new Promise<Person[]>((resolve, reject) => {
+      this.ipc.once('getPeopleResponse', (event, arg) => {
         resolve(arg);
       });
-      this.ipc.send('getBequests');
+      this.ipc.send('getPeople');
     });
   }
 
