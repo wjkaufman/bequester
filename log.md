@@ -4,6 +4,14 @@
 
 Picking it up, working on the database right now... Might look into formatting/angular stuff later, like views (so I can look at people too!).
 
+Surprisingly productive! Next steps:
+
+- Look into views, show people/bequests one at a time
+- Refactor bequests into bequests and bequest (singular, plural)
+- Add CSS, make it pretty
+- Link people and bequests
+- Import data!
+
 ### 2019-02-03
 
 Against my better judgement, I'm going to try to get sqlite3 to work now. Wish me luck... (it's 21:19 and I'm in bed with the lights off, but I can't stop thinking about the app working...)
