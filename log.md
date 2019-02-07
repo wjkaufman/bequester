@@ -1,5 +1,9 @@
 # Log
 
+### 2019-02-07
+
+Ok, going to refactor bequests now...
+
 ### 2019-02-06
 
 Picking it up, working on the database right now... Might look into formatting/angular stuff later, like views (so I can look at people too!).

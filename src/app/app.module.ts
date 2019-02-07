@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BequestComponent } from './bequest/bequest.component';
+import { BequestsComponent } from './bequests/bequests.component';
 import { PersonComponent } from './person/person.component';
 import { PeopleComponent } from './people/people.component';
 
@@ -12,6 +13,7 @@ import { PeopleComponent } from './people/people.component';
   declarations: [
     AppComponent,
     BequestComponent,
+    BequestsComponent,
     PersonComponent,
     PeopleComponent
   ],

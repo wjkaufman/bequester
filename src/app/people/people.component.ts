@@ -23,7 +23,11 @@ export class PeopleComponent implements OnInit {
   }
   
   onSelect(person: Person) {
-    this.selectedPerson = person
+    if (this.selectedPerson == person) {
+      this.selectedPerson = null;
+    } else {
+      this.selectedPerson = person;
+    }
   }
 
   constructor(private personService: PersonService) { }

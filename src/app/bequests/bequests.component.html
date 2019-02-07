@@ -1,0 +1,8 @@
+<ul class="bequests">
+  <li *ngFor="let bequest of bequests" (click)="onSelect(bequest)">
+    <h2>{{bequest.name}}</h2>
+    <p>{{bequest.desc}}</p>
+  </li>
+</ul>
+
+<app-bequest [bequest]="selectedBequest"></app-bequest>

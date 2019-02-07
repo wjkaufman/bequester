@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Bequest } from '../bequest';
-import { BequestService } from '../bequest.service';
 
 @Component({
   selector: 'app-bequest',
@@ -9,22 +8,22 @@ import { BequestService } from '../bequest.service';
 })
 export class BequestComponent implements OnInit {
   
-  bequests: Bequest[];
+  @Input() bequest: Bequest;
   
-  getBequests(): void {
-    this.bequestService.getBequests()
-      .then((res) => {
-        this.bequests = res;
-      })
-      .catch((err) => {
-        console.error(err)
-      })
-  }
+  // getBequests(): void {
+  //   this.bequestService.getBequests()
+  //     .then((res) => {
+  //       this.bequests = res;
+  //     })
+  //     .catch((err) => {
+  //       console.error(err)
+  //     })
+  // }
 
-  constructor(private bequestService: BequestService) { }
+  constructor() { } // private bequestService: BequestService
 
   ngOnInit() {
-    this.getBequests();
+    // this.getBequests();
   }
 
 }
