@@ -4,6 +4,11 @@
 
 Ok, going to refactor bequests now...
 
+Did lots of stuff (see git log if you care). Current problems:
+
+- hamburger menu doesn't work when app is too small
+- I'm tired
+
 ### 2019-02-06
 
 Picking it up, working on the database right now... Might look into formatting/angular stuff later, like views (so I can look at people too!).
