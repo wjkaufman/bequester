@@ -8,6 +8,8 @@
     </ul>
   </div>
   <div class="col-7">
-    <app-bequest [bequest]="selectedBequest"></app-bequest>
+    <div *ngIf="selectedBequest">
+      <app-bequest [bequest]="selectedBequest"></app-bequest>
+    </div>
   </div>
 </div>

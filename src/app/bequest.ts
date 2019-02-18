@@ -1,5 +1,5 @@
 export class Bequest {
-  id: number;
+  bequestID: number;
   name: string;
   desc: string;
   dateCreated: Date

@@ -3,6 +3,7 @@
   <h6>Description</h6>
   <p>{{bequest.desc}}</p>
   
+  <!-- editing bequest -->
   <button type="button" (click)="editing=!editing">Edit bequest</button>
   <form *ngIf="editing" (ngSubmit)="onSubmit">
     <label for="name">Name
@@ -19,5 +20,14 @@
     
     <button type="submit" class="btn btn-success">Submit</button>
   </form>
+  
+  <!-- show bequest holdings -->
+  <div *ngIf="holdings">
+    <ul>
+      <li *ngFor="let holding of holdings">
+        {{holding.firstname}} {{holding.lastname}}: {{holding.dateStarted}}
+      </li>
+    </ul>
+  </div>
   
 </div>
