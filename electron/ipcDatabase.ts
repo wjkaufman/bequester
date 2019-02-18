@@ -5,7 +5,6 @@ export function ipcDatabase(ipcMain, win, db) {
   
   ipcMain.on('getBequests', (event, arg) => {
     db.all("SELECT * FROM bequests", (err, bequests) => {
-        console.log('got bequests!')
         win.webContents.send('getBequestsResponse', bequests)
     });
   });

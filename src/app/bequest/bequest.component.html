@@ -1,7 +1,23 @@
 <div *ngIf="bequest" class="bequest">
   <h4>{{bequest.name}}</h4>
+  <h6>Description</h6>
   <p>{{bequest.desc}}</p>
-  <label>name:
-    <input type="text" [(ngModel)]="bequest.name" placeholder="name">
-  </label>
+  
+  <button type="button" (click)="editing=!editing">Edit bequest</button>
+  <form *ngIf="editing" (ngSubmit)="onSubmit">
+    <label for="name">Name
+      <input class="form-control" type="text"
+      required
+      [(ngModel)]="bequest.name" name="name"
+      placeholder="Bequest name">
+    </label>
+    <label for="desc">Description
+      <textarea class="form-control" name="desc" rows="8" cols="80"
+      [(ngModel)]="bequest.desc">
+      </textarea>
+    </label>
+    
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+  
 </div>

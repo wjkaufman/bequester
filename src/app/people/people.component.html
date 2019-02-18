@@ -1,12 +1,16 @@
-<div *ngIf="people" class="peopleList">
-  <h2>People ({{people.length}} total)</h2>
+<div *ngIf="people" class="peopleList row">
+  <div class="col-5">
+    <h2>People ({{people.length}} total)</h2>
 
-  <ul class="people">
-    <li *ngFor="let person of people" (click)="onSelect(person)">
-      <p>{{person.firstname}} {{person.lastname}} ({{person.gradYear}})</p>
-    </li>
-  </ul>
-
-  <app-person [person]="selectedPerson"></app-person>
+    <ul class="people">
+      <li *ngFor="let person of people" (click)="onSelect(person)">
+        <p>{{person.firstname}} {{person.lastname}} ({{person.gradYear}})</p>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="col-7">
+    <app-person [person]="selectedPerson"></app-person>
+  </div>
 
 </div>
