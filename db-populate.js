@@ -46,7 +46,7 @@ db.serialize(function() {
   // PEOPLE
   //
   
-  // create table for bequests
+  // create table
   db.run(`CREATE TABLE if not exists people (
       personID integer primary key,
       firstname text not null, lastname text not null,
@@ -55,7 +55,7 @@ db.serialize(function() {
   
   console.log('Created peopletable (if it doesn\'t already exist)');
   
-  // insert dummy bequests
+  // insert dummy people
   db.run(`insert into people values (
     (select max(personID)+1 from people),
     'Walter', 'Banfield', 'Rower', 2017
@@ -79,7 +79,75 @@ db.serialize(function() {
       console.log(b.personID, b.firstname, b.lastname, b.gradYear);
   });
   
-  console.log('Finished populating database with bequests');
+  //
+  // HOLDINGS
+  //
+  
+  // table for holdings (associates beqest and person)
+  
+  db.run(`CREATE TABLE if not exists holdings (
+      holdingID integer primary key,
+      personID integer not null, bequestID not null,
+      dateStarted text not null
+    )`);
+  
+  console.log('Created holdings table (if it doesn\'t already exist)');
+  
+  // insert dummy bequests
+  db.run(`insert into holdings values (
+    (SELECT MAX(holdingID)+1 FROM holdings),
+    (SELECT personID FROM people ORDER BY RANDOM() LIMIT 1),
+    (SELECT bequestID FROM bequests ORDER BY RANDOM() LIMIT 1),
+    '2011-02-01'
+  )`)
+  db.run(`insert into holdings values (
+    (SELECT MAX(holdingID)+1 FROM holdings),
+    (SELECT personID FROM people ORDER BY RANDOM() LIMIT 1),
+    (SELECT bequestID FROM bequests ORDER BY RANDOM() LIMIT 1),
+    '2012-02-01'
+  )`)
+  db.run(`insert into holdings values (
+    (SELECT MAX(holdingID)+1 FROM holdings),
+    (SELECT personID FROM people ORDER BY RANDOM() LIMIT 1),
+    (SELECT bequestID FROM bequests ORDER BY RANDOM() LIMIT 1),
+    '2013-02-01'
+  )`)
+  db.run(`insert into holdings values (
+    (SELECT MAX(holdingID)+1 FROM holdings),
+    (SELECT personID FROM people ORDER BY RANDOM() LIMIT 1),
+    (SELECT bequestID FROM bequests ORDER BY RANDOM() LIMIT 1),
+    '2014-05-01'
+  )`)
+  db.run(`insert into holdings values (
+    (SELECT MAX(holdingID)+1 FROM holdings),
+    (SELECT personID FROM people ORDER BY RANDOM() LIMIT 1),
+    (SELECT bequestID FROM bequests ORDER BY RANDOM() LIMIT 1),
+    '2016-02-03'
+  )`)
+  db.run(`insert into holdings values (
+    (SELECT MAX(holdingID)+1 FROM holdings),
+    (SELECT personID FROM people ORDER BY RANDOM() LIMIT 1),
+    (SELECT bequestID FROM bequests ORDER BY RANDOM() LIMIT 1),
+    '2017-05-12'
+  )`)
+  db.run(`insert into holdings values (
+    (SELECT MAX(holdingID)+1 FROM holdings),
+    (SELECT personID FROM people ORDER BY RANDOM() LIMIT 1),
+    (SELECT bequestID FROM bequests ORDER BY RANDOM() LIMIT 1),
+    '2018-06-12'
+  )`)
+  
+  console.log('Created dummy holdings');
+  
+  db.each(`SELECT * FROM holdings a
+      JOIN people b ON a.personID = b.personID
+      JOIN bequests c ON a.bequestID = c.bequestID
+    `, function(err, h) {
+      // console.log(h);
+      console.log(h.holdingID, h.firstname, h.name, h.dateStarted);
+  });
+  
+  console.log('Finished populating database with dummy data');
 });
 
 db.close();
