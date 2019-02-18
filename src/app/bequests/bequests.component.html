@@ -1,5 +1,5 @@
 <div *ngIf="bequests" class="bequestList row">
-  <div class="col-4">
+  <div class="col-5">
     <h2>Bequests ({{bequests.length}} total)</h2>
     <ul class="bequests">
       <li *ngFor="let bequest of bequests" (click)="onSelect(bequest)">
@@ -7,7 +7,7 @@
       </li>
     </ul>
   </div>
-  <div class="col-6">
+  <div class="col-7">
     <app-bequest [bequest]="selectedBequest"></app-bequest>
   </div>
 </div>

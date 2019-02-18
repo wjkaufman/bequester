@@ -1,5 +1,18 @@
 # Log
 
+### 2019-02-09
+
+Figured out the navbar (installed ng-bootstrap, and that seemed to take care of it). Starting to add forms to _update_ bequests, will do same for people once I understand what's going on. Then I'll have to flesh out the backend configurations.
+
+To do:
+- Finish "update" functionality
+    - Front end forms
+    - Back end db stuff
+- Add "create" functionality
+    - Individual
+    - Batch create (so I can add from spreadsheet)
+- Add "delete" functionality
+
 ### 2019-02-07
 
 Ok, going to refactor bequests now...
