@@ -1,38 +1,8 @@
 # Bequester
 
-## To do
+## Installation
 
-- Create database setup, incorporate into app
-- add timeouts, request IDs for database stuff (so it works well...)
-- Make components for people, connect bequests and people
-- Separate bequest (or bequestDetail) and bequestlist
-- Add import/export functionality so I can include spreadsheet, export lists of bequests, etc.
-- Make everything pretty with bootstrap
-- ...
-
-## Angular auto-generated stuff
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.3.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+When running `npm install`, don't forget to also run `./node_modules/.bin/electron-rebuild` so that electron can use native Node modules. Especially a problem for sqlite3.
 
 ## Further help
 
