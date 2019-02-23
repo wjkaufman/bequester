@@ -10,7 +10,9 @@
   </div>
   
   <div class="col-7">
-    <app-person [person]="selectedPerson"></app-person>
+    <div *ngIf="selectedPerson">
+      <app-person [person]="selectedPerson"></app-person>      
+    </div>
   </div>
 
 </div>

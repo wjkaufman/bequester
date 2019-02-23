@@ -6,4 +6,16 @@
   
   <p>Position: {{person.position}}</p>
   
+  <h4>Holdings</h4>
+  <div *ngIf="holdings">
+    <ul>
+      <li *ngFor="let holding of holdings">
+        {{holding.name}} (made on {{holding.dateCreated}}): got it on {{holding.dateStarted}}
+        <div *ngIf="holding.comment">
+          <br> <b>Comment:</b> {{holding.comment}}
+        </div>
+      </li>
+    </ul>
+  </div>
+  
 </div>
