@@ -4,19 +4,34 @@ var db = new sqlite3.Database('./lonepine.db');
 
 db.serialize(function() {
   
-  //
-  // BEQUESTS
-  //
+  // create tables
   
-  // create table for bequests
+  // create bequests table
   db.run(`CREATE TABLE if not exists bequests (
       bequestID integer primary key,
       name text not null, desc text, dateCreated text
     )`);
+    
+  // create people table
+  db.run(`CREATE TABLE if not exists people (
+      personID integer primary key,
+      firstname text not null, lastname text not null,
+      position text, gradYear integer
+    )`);
+    
+  db.run(`CREATE TABLE if not exists holdings (
+      holdingID integer primary key,
+      personID integer not null, bequestID not null,
+      dateStarted text not null, comment text
+    )`);
   
-  console.log('Created table (if it doesn\'t already exist)');
+  console.log('Created tables (if it doesn\'t already exist)');
   
-  // insert dummy bequests
+  //
+  // create dummy data
+  //
+  
+  // bequests
   db.run(`insert into bequests values (
     (select max(bequestID)+1 from bequests),
     'H150 betting shirt', 'Old and gross, ew!', '1905-02-18'
@@ -36,26 +51,7 @@ db.serialize(function() {
   
   console.log('Created dummy bequests:');
   
-  db.each("SELECT * FROM bequests", function(err, b) {
-      console.log(b.bequestID, b.name, b.desc, b.dateCreated);
-  });
-  
-  console.log('Finished populating database with bequests');
-  
-  //
-  // PEOPLE
-  //
-  
-  // create table
-  db.run(`CREATE TABLE if not exists people (
-      personID integer primary key,
-      firstname text not null, lastname text not null,
-      position text, gradYear integer
-    )`);
-  
-  console.log('Created peopletable (if it doesn\'t already exist)');
-  
-  // insert dummy people
+  // people
   db.run(`insert into people values (
     (select max(personID)+1 from people),
     'Walter', 'Banfield', 'Rower', 2017
@@ -75,69 +71,31 @@ db.serialize(function() {
   
   console.log('Created dummy people (not that they\'re dumb):');
   
+  // holdings
+  for (let i=1; i<10; i++) {
+    db.run(`insert into holdings values (
+      (SELECT MAX(holdingID)+1 FROM holdings),
+      (SELECT personID FROM people ORDER BY RANDOM() LIMIT 1),
+      (SELECT bequestID FROM bequests ORDER BY RANDOM() LIMIT 1),
+      '2012-05-0${i}', 'what a cool person, ${i}/10'
+    )`)
+  }
+  
+  // TODO keep on working on adding comments to holdings (forgot earlier)
+  // then pull request, continue working on issues
+  // maybe figure out date issue next??
+  
+  console.log('Created dummy holdings');
+  
+  // print out what I've made...
+  
+  db.each("SELECT * FROM bequests", function(err, b) {
+      console.log(b.bequestID, b.name, b.desc, b.dateCreated);
+  });
+  
   db.each("SELECT * FROM people", function(err, b) {
       console.log(b.personID, b.firstname, b.lastname, b.gradYear);
   });
-  
-  //
-  // HOLDINGS
-  //
-  
-  // table for holdings (associates beqest and person)
-  
-  db.run(`CREATE TABLE if not exists holdings (
-      holdingID integer primary key,
-      personID integer not null, bequestID not null,
-      dateStarted text not null
-    )`);
-  
-  console.log('Created holdings table (if it doesn\'t already exist)');
-  
-  // insert dummy bequests
-  db.run(`insert into holdings values (
-    (SELECT MAX(holdingID)+1 FROM holdings),
-    (SELECT personID FROM people ORDER BY RANDOM() LIMIT 1),
-    (SELECT bequestID FROM bequests ORDER BY RANDOM() LIMIT 1),
-    '2011-02-01'
-  )`)
-  db.run(`insert into holdings values (
-    (SELECT MAX(holdingID)+1 FROM holdings),
-    (SELECT personID FROM people ORDER BY RANDOM() LIMIT 1),
-    (SELECT bequestID FROM bequests ORDER BY RANDOM() LIMIT 1),
-    '2012-02-01'
-  )`)
-  db.run(`insert into holdings values (
-    (SELECT MAX(holdingID)+1 FROM holdings),
-    (SELECT personID FROM people ORDER BY RANDOM() LIMIT 1),
-    (SELECT bequestID FROM bequests ORDER BY RANDOM() LIMIT 1),
-    '2013-02-01'
-  )`)
-  db.run(`insert into holdings values (
-    (SELECT MAX(holdingID)+1 FROM holdings),
-    (SELECT personID FROM people ORDER BY RANDOM() LIMIT 1),
-    (SELECT bequestID FROM bequests ORDER BY RANDOM() LIMIT 1),
-    '2014-05-01'
-  )`)
-  db.run(`insert into holdings values (
-    (SELECT MAX(holdingID)+1 FROM holdings),
-    (SELECT personID FROM people ORDER BY RANDOM() LIMIT 1),
-    (SELECT bequestID FROM bequests ORDER BY RANDOM() LIMIT 1),
-    '2016-02-03'
-  )`)
-  db.run(`insert into holdings values (
-    (SELECT MAX(holdingID)+1 FROM holdings),
-    (SELECT personID FROM people ORDER BY RANDOM() LIMIT 1),
-    (SELECT bequestID FROM bequests ORDER BY RANDOM() LIMIT 1),
-    '2017-05-12'
-  )`)
-  db.run(`insert into holdings values (
-    (SELECT MAX(holdingID)+1 FROM holdings),
-    (SELECT personID FROM people ORDER BY RANDOM() LIMIT 1),
-    (SELECT bequestID FROM bequests ORDER BY RANDOM() LIMIT 1),
-    '2018-06-12'
-  )`)
-  
-  console.log('Created dummy holdings');
   
   db.each(`SELECT * FROM holdings a
       JOIN people b ON a.personID = b.personID
