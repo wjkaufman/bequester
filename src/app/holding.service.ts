@@ -17,6 +17,15 @@ export class HoldingService {
       this.ipc.send('getBequestHoldings', bequestID);
     })
   }
+  
+  async getPersonHoldings(personID: number) {
+    return new Promise<Holding[]>((resolve, reject) => {
+      this.ipc.once('getPersonHoldingsResponse', (event, arg) => {
+        resolve(arg);
+      });
+      this.ipc.send('getPersonHoldings', personID);
+    })
+  }
 
   constructor() {
     if ((<any>window).require) {

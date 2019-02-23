@@ -25,4 +25,15 @@ export function ipcDatabase(ipcMain, win, db) {
               win.webContents.send('getBequestHoldingsResponse', holdings)
             })
   })
+  
+  ipcMain.on('getPersonHoldings', (event, arg) => {
+    db.all(`select * from holdings a
+            join bequests b on a.bequestID = b.bequestID
+            join people c on a.personID = c.personID
+            where c.personID = ?
+            order by a.dateStarted`, arg,
+            (err, holdings) => {
+              win.webContents.send('getPersonHoldingsResponse', holdings)
+            })
+  })
 };
