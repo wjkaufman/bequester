@@ -19,8 +19,9 @@ export function ipcDatabase(ipcMain, win, db) {
     db.all(`select * from holdings a
             join bequests b on a.bequestID = b.bequestID
             join people c on a.personID = c.personID
-            where a.bequestID = ${arg}
-            order by a.dateStarted`, (err, holdings) => {
+            where a.bequestID = ?
+            order by a.dateStarted`, arg,
+            (err, holdings) => {
               win.webContents.send('getBequestHoldingsResponse', holdings)
             })
   })

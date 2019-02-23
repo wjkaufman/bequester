@@ -1,5 +1,13 @@
 # Log
 
+### 2019-02-23
+
+On 2/18 I was working on holdings too...
+
+So I added holdings stuff to bequests, today I'll add to people as well.
+
+Also figured out how to (I think) properly sanitize SQL queries.
+
 ### 2019-02-09
 
 Figured out the navbar (installed ng-bootstrap, and that seemed to take care of it). Starting to add forms to _update_ bequests, will do same for people once I understand what's going on. Then I'll have to flesh out the backend configurations.
