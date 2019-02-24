@@ -1,5 +1,9 @@
 # Log
 
+### 2019-02-24
+
+Continuing the bequest edit form...
+
 ### 2019-02-23
 
 On 2/18 I was working on holdings too...

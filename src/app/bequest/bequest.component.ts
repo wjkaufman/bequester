@@ -11,6 +11,8 @@ import { HoldingService } from '../holding.service';
 export class BequestComponent implements OnChanges {
   
   @Input() bequest: Bequest;
+  editing = false;
+  editedBequest: Bequest;
   holdings: Holding[];
   
   getHoldings(): void {
@@ -23,15 +25,27 @@ export class BequestComponent implements OnChanges {
       })
   }
   
+  onEdit(): void {
+    this.editing = !this.editing;
+    if (this.editing) {
+      this.editedBequest = new Bequest(this.bequest);
+    }
+  }
+  
   onSubmit(): void {
     console.log('form submitted!');
-    console.log(this.bequest);
+    
+    // TODO make call to update server
+    
+    this.bequest = this.editedBequest;
+    this.editing = false;
   }
   
   constructor(private holdingService: HoldingService) { }
   
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
     this.getHoldings();
+    this.editing = false;
   }
 
   // ngOnInit() {

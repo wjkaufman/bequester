@@ -3,4 +3,11 @@ export class Bequest {
   name: string;
   desc: string;
   dateCreated: Date
+  
+  constructor(b: Bequest) {
+    this.bequestID = b.bequestID;
+    this.name = b.name;
+    this.desc = b.desc;
+    this.dateCreated = b.dateCreated;
+  }
 }
