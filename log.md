@@ -8,6 +8,8 @@ So I added holdings stuff to bequests, today I'll add to people as well.
 
 Also figured out how to (I think) properly sanitize SQL queries.
 
+**TO DO NEXT: figure out forms with angular (validation would be nice, but really just need to write update SQL queries at a minimum).**
+
 ### 2019-02-09
 
 Figured out the navbar (installed ng-bootstrap, and that seemed to take care of it). Starting to add forms to _update_ bequests, will do same for people once I understand what's going on. Then I'll have to flesh out the backend configurations.

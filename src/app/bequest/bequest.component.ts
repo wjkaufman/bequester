@@ -23,6 +23,11 @@ export class BequestComponent implements OnChanges {
       })
   }
   
+  onSubmit(): void {
+    console.log('form submitted!');
+    console.log(this.bequest);
+  }
+  
   constructor(private holdingService: HoldingService) { }
   
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
