@@ -49,6 +49,9 @@
         <div *ngIf="date.errors.required">
           Date is required.
         </div>
+        <div *ngIf="date.errors.min">
+          Date is before 1950, I doubt that's accurate...
+        </div>
       </div>
       <br>
       <button type="submit" class="btn btn-success">Submit</button>

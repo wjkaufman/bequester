@@ -17,6 +17,15 @@ export class BequestService {
       this.ipc.send('getBequests');
     });
   }
+  
+  async updateBequest(bequest: Bequest) {
+    return new Promise<Bequest[]>((resolve, reject) => {
+      this.ipc.once('updateBequestResponse', (event, arg) => {
+        resolve(arg);
+      });
+      this.ipc.send('updateBequest', bequest);
+    });
+  }
 
   constructor() {
     if ((<any>window).require) {

@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, SimpleChange } from '@angular/core';
 import { Bequest } from '../bequest';
 import { Holding } from '../holding';
+import { BequestService } from '../bequest.service';
 import { HoldingService } from '../holding.service';
 
 @Component({
@@ -33,15 +34,21 @@ export class BequestComponent implements OnChanges {
   }
   
   onSubmit(): void {
-    console.log('form submitted!');
-    
-    // TODO make call to update server
-    
-    this.bequest = this.editedBequest;
-    this.editing = false;
+    console.log('submitting changes to bequest...')
+    this.bequestService.updateBequest(this.editedBequest)
+      .then((res) => {
+        console.log('apparently made changes');
+        console.log(this.bequest);
+        this.bequest = this.editedBequest;
+        this.editing = false;
+      })
+      .catch((err) => {
+        console.error(err)
+      })
   }
   
-  constructor(private holdingService: HoldingService) { }
+  constructor(private holdingService: HoldingService,
+              private bequestService: BequestService) { }
   
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
     this.getHoldings();

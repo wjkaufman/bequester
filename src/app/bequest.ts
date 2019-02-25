@@ -5,6 +5,10 @@ export class Bequest {
   dateCreated: Date
   
   constructor(b: Bequest) {
+    this.set(b);
+  }
+  
+  set(b: Bequest) {
     this.bequestID = b.bequestID;
     this.name = b.name;
     this.desc = b.desc;

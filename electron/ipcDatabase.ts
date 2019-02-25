@@ -3,17 +3,39 @@ export function ipcDatabase(ipcMain, win, db) {
   
   // add event listeners for different SQL queries
   
+  //
+  // BEQUESTS
+  //
+  
   ipcMain.on('getBequests', (event, arg) => {
     db.all("SELECT * FROM bequests", (err, bequests) => {
         win.webContents.send('getBequestsResponse', bequests)
     });
   });
   
+  ipcMain.on('updateBequest', (event, arg) => {
+    db.run(`UPDATE bequests SET
+              name = ?, desc = ?, dateCreated = ?
+            WHERE bequestID = ?`,
+            arg.name, arg.desc, arg.dateCreated, arg.bequestID,
+          (err, res) => {
+            win.webContents.send('updateBequestResponse', res)
+          })
+  })
+  
+  //
+  // PEOPLE
+  //
+  
   ipcMain.on('getPeople', (event, arg) => {
     db.all('select * from people', (err, people) => {
       win.webContents.send('getPeopleResponse', people)
     })
   })
+  
+  //
+  // HOLDINGS
+  //
   
   ipcMain.on('getBequestHoldings', (event, arg) => {
     db.all(`select * from holdings a
