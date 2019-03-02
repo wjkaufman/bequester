@@ -51,9 +51,4 @@ export class BequestComponent implements OnChanges {
     this.getHoldings();
     this.editing = false;
   }
-
-  // ngOnInit() {
-  //   this.getHoldings();
-  // }
-
 }

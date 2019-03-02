@@ -12,7 +12,11 @@ export class PersonService {
   async getPeople() {
     return new Promise<Person[]>((resolve, reject) => {
       this.ipc.once('getPeopleResponse', (event, arg) => {
-        resolve(arg);
+        let people: Person[] = [];
+        for (let p of arg) {
+          people.push(new Person(p));
+        }
+        resolve(people);
       });
       this.ipc.send('getPeople');
     });

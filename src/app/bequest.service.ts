@@ -12,7 +12,11 @@ export class BequestService {
   async getBequests() {
     return new Promise<Bequest[]>((resolve, reject) => {
       this.ipc.once('getBequestsResponse', (event, arg) => {
-        resolve(arg);
+        let bequests: Bequest[] = [];
+        for (let b of arg) {
+          bequests.push(new Bequest(b));
+        }
+        resolve(bequests);
       });
       this.ipc.send('getBequests');
     });
