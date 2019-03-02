@@ -12,7 +12,11 @@ export class HoldingService {
   async getBequestHoldings(bequestID: number) {
     return new Promise<Holding[]>((resolve, reject) => {
       this.ipc.once('getBequestHoldingsResponse', (event, arg) => {
-        resolve(arg);
+        let holdings: Holding[] = [];
+        for (let h of arg) {
+          holdings.push(new Holding(h));
+        }
+        resolve(holdings);
       });
       this.ipc.send('getBequestHoldings', bequestID);
     })
@@ -21,9 +25,22 @@ export class HoldingService {
   async getPersonHoldings(personID: number) {
     return new Promise<Holding[]>((resolve, reject) => {
       this.ipc.once('getPersonHoldingsResponse', (event, arg) => {
-        resolve(arg);
+        let holdings: Holding[] = [];
+        for (let h of arg) {
+          holdings.push(new Holding(h));
+        }
+        resolve(holdings);
       });
       this.ipc.send('getPersonHoldings', personID);
+    })
+  }
+  
+  async updateHolding(holding: Holding) {
+    return new Promise((resolve, reject) => {
+      this.ipc.once('updateHoldingResponse', (event, arg) => {
+        resolve(arg);
+      });
+      this.ipc.send('updateHolding', holding);
     })
   }
 

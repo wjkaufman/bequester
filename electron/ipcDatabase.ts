@@ -16,12 +16,12 @@ export function ipcDatabase(ipcMain, win, db) {
   ipcMain.on('updateBequest', (event, arg) => {
     db.run(`UPDATE bequests SET
               name = ?, desc = ?, dateCreated = ?
-            WHERE bequestID = ?`,
+              WHERE bequestID = ?`,
             arg.name, arg.desc, arg.dateCreated, arg.bequestID,
-          (err, res) => {
-            win.webContents.send('updateBequestResponse', res)
-          })
-  })
+            (err, res) => {
+              win.webContents.send('updateBequestResponse', res)
+            });
+  });
   
   //
   // PEOPLE
@@ -35,13 +35,13 @@ export function ipcDatabase(ipcMain, win, db) {
   
   ipcMain.on('updatePerson', (event, arg) => {
     db.run(`UPDATE people SET
-      firstname = ?, lastname = ?, position = ?, gradYear = ?
-      WHERE personID = ?`,
-      arg.firstname, arg.lastname, arg.position, arg.gradYear, arg.personID,
-    (err, res) => {
-      win.webContents.send('updatePersonResponse', res);
-    })
-  })
+              firstname = ?, lastname = ?, position = ?, gradYear = ?
+              WHERE personID = ?`,
+            arg.firstname, arg.lastname, arg.position, arg.gradYear, arg.personID,
+          (err, res) => {
+            win.webContents.send('updatePersonResponse', res);
+          });
+  });
   
   //
   // HOLDINGS
@@ -49,23 +49,32 @@ export function ipcDatabase(ipcMain, win, db) {
   
   ipcMain.on('getBequestHoldings', (event, arg) => {
     db.all(`select * from holdings a
-            join bequests b on a.bequestID = b.bequestID
-            join people c on a.personID = c.personID
-            where a.bequestID = ?
-            order by a.dateStarted`, arg,
+              join bequests b on a.bequestID = b.bequestID
+              join people c on a.personID = c.personID
+              where a.bequestID = ?
+              order by a.dateStarted`, arg,
             (err, holdings) => {
               win.webContents.send('getBequestHoldingsResponse', holdings)
-            })
-  })
+            });
+  });
   
   ipcMain.on('getPersonHoldings', (event, arg) => {
     db.all(`select * from holdings a
-            join bequests b on a.bequestID = b.bequestID
-            join people c on a.personID = c.personID
-            where c.personID = ?
-            order by a.dateStarted`, arg,
+              join bequests b on a.bequestID = b.bequestID
+              join people c on a.personID = c.personID
+              where c.personID = ?
+              order by a.dateStarted`, arg,
             (err, holdings) => {
               win.webContents.send('getPersonHoldingsResponse', holdings)
-            })
-  })
+            });
+  });
+  
+  ipcMain.on('updateHolding', (event, arg) => {
+    db.run(`UPDATE holdings SET
+              personID = ?, bequestID = ?, dateStarted = ?, comment = ?
+              WHERE holdingID = ?`, arg.personID, arg.bequestID, arg.dateStarted,
+            arg.comment, arg.holdingID, (err, res) => {
+              win.webContents.send('updateHoldingResponse', res);
+            });
+  });
 };
