@@ -19,7 +19,8 @@
   <a [routerLink]="" (click)="onEdit()">Edit</a>
   <div class="bequestEditor" *ngIf="editing">
     <h4>Editing {{bequest.name}} (id#{{bequest.bequestID}})</h4>
-    <form *ngIf="editing" (ngSubmit)="onSubmit()" #bequestForm="ngForm">
+    <form (ngSubmit)="onSubmit()" #bequestForm="ngForm">
+      
       <label for="name">Name
         <input class="form-control" type="text"
         required
@@ -29,16 +30,17 @@
       </label>
       <div *ngIf="name.invalid && (name.dirty || name.touched)"
           class="alert alert-danger">
-
         <div *ngIf="name.errors.required">
           Name is required.
         </div>
       </div>
+      
       <label for="desc">Description
         <textarea class="form-control" name="desc" rows="8" cols="80"
         [(ngModel)]="editedBequest.desc">
         </textarea>
       </label>
+      
       <label for="dateCreated">Date created
         <input class="form-control" type="date"
         required name="dateCreated"

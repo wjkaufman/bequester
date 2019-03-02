@@ -33,6 +33,16 @@ export function ipcDatabase(ipcMain, win, db) {
     })
   })
   
+  ipcMain.on('updatePerson', (event, arg) => {
+    db.run(`UPDATE people SET
+      firstname = ?, lastname = ?, position = ?, gradYear = ?
+      WHERE personID = ?`,
+      arg.firstname, arg.lastname, arg.position, arg.gradYear, arg.personID,
+    (err, res) => {
+      win.webContents.send('updatePersonResponse', res);
+    })
+  })
+  
   //
   // HOLDINGS
   //

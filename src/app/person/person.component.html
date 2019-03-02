@@ -6,8 +6,8 @@
   
   <p>Position: {{person.position}}</p>
   
-  <h4>Holdings</h4>
   <div *ngIf="holdings">
+    <h4>Holdings</h4>
     <ul>
       <li *ngFor="let holding of holdings">
         {{holding.name}} (made on {{holding.dateCreated}}): got it on {{holding.dateStarted}}
@@ -16,6 +16,51 @@
         </div>
       </li>
     </ul>
+  </div>
+  
+  <!-- person editor -->
+  <a [routerLink]="" (click)="onEdit()">Edit</a>
+  <div class="personEditor" *ngIf="editing">
+    <h4>Editing {{person.firstname}} {{person.lastname}} (id#{{person.personID}})</h4>
+    <form class="" (ngSubmit)="onSubmit()" #personForm="ngForm">
+      <label for="name">Name
+        <input type="text" name="firstname" class="form-control"
+        required [(ngModel)]="editedPerson.firstname" #firstname="ngModel"
+        placeholder="First name">
+        <input type="text" name="lastname" class="form-control"
+        required [(ngModel)]="editedPerson.lastname" #lastname="ngModel"
+        placeholder="Last name">
+      </label>
+      <div *ngIf="(firstname.invalid || lastname.invalid)
+       && (firstname.dirty || firstname.touched
+            || lastname.dirty || lastname.touched)"
+          class="alert alert-danger">
+        <div *ngIf="name.errors.required">
+          First and last name are both required.
+        </div>
+      </div>
+      
+      <label for="name">Position
+        <input type="text" name="position" class="form-control"
+        [(ngModel)]="editedPerson.position" #position="ngModel"
+        placeholder="Position (e.g. rower, coxswain)">
+      </label>
+      
+      <label for="name">Graduation year
+        <input type="number" step="1" name="gradYear" class="form-control"
+        required
+        [(ngModel)]="editedPerson.gradYear" #gradYear="ngModel"
+        placeholder="Graduation year (e.g. 2020)">
+      </label>
+      <div *ngIf="(gradYear.invalid) && (gradYear.dirty || gradYear.touched)"
+          class="alert alert-danger">
+        <div *ngIf="name.errors.required">
+          Graduation year is required.
+        </div>
+      </div>
+      
+      <button type="submit" class="btn btn-success">Submit</button>
+    </form>
   </div>
   
 </div>

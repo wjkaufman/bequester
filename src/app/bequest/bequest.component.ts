@@ -34,7 +34,6 @@ export class BequestComponent implements OnChanges {
   }
   
   onSubmit(): void {
-    console.log('submitting changes to bequest...')
     this.bequestService.updateBequest(this.editedBequest)
       .then((res) => {
         this.bequest.set(this.editedBequest);

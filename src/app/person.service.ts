@@ -17,6 +17,15 @@ export class PersonService {
       this.ipc.send('getPeople');
     });
   }
+  
+  async updatePerson(p: Person) {
+    return new Promise<Person>((resolve, reject) => {
+      this.ipc.once('updatePersonResponse', (event, arg) => {
+        resolve(arg);
+      });
+      this.ipc.send('updatePerson', p);
+    })
+  }
 
   constructor() {
     if ((<any>window).require) {

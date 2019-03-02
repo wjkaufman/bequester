@@ -15,7 +15,10 @@ export class PeopleComponent implements OnInit {
   getPeople(): void {
     this.personService.getPeople()
       .then((res) => {
-        this.people = res;
+        this.people = [];
+        for (let p of res) {
+          this.people.push(new Person(p));
+        }
       })
       .catch((err) => {
         console.error(err);
