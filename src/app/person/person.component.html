@@ -10,10 +10,7 @@
     <h4>Holdings</h4>
     <ul>
       <li *ngFor="let holding of holdings">
-        {{holding.name}} (made on {{holding.dateCreated}}): got it on {{holding.dateStarted}}
-        <div *ngIf="holding.comment">
-          <br> <b>Comment:</b> {{holding.comment}}
-        </div>
+        <app-holding [holding]="holding" [viewType]="'person'"></app-holding>
       </li>
     </ul>
   </div>

@@ -10,7 +10,7 @@
   <div *ngIf="holdings">
     <ul>
       <li *ngFor="let holding of holdings">
-        {{holding.firstname}} {{holding.lastname}}: {{holding.dateStarted}}
+        <app-holding [holding]="holding" [viewType]="'bequest'"></app-holding>
       </li>
     </ul>
   </div>

@@ -1,0 +1,17 @@
+<div *ngIf="holding">
+  
+  <div *ngIf="viewType=='bequest'">
+    {{holding.firstname}} {{holding.lastname}}: {{holding.dateStarted}}
+  </div>
+  
+  <div *ngIf="viewType=='person'">
+    {{holding.name}} (made on {{holding.dateCreated}}): got it on {{holding.dateStarted}}
+    <div *ngIf="holding.comment">
+      <br> <b>Comment:</b> {{holding.comment}}
+    </div>
+  </div>
+  
+  <!-- holding editor -->
+  <!-- TODO -->
+  
+</div>
