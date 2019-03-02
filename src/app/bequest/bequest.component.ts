@@ -37,9 +37,7 @@ export class BequestComponent implements OnChanges {
     console.log('submitting changes to bequest...')
     this.bequestService.updateBequest(this.editedBequest)
       .then((res) => {
-        console.log('apparently made changes');
-        console.log(this.bequest);
-        this.bequest = this.editedBequest;
+        this.bequest.set(this.editedBequest);
         this.editing = false;
       })
       .catch((err) => {

@@ -8,7 +8,7 @@ export class Bequest {
     this.set(b);
   }
   
-  set(b: Bequest) {
+  set(b: Bequest): void {
     this.bequestID = b.bequestID;
     this.name = b.name;
     this.desc = b.desc;

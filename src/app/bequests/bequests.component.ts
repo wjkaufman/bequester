@@ -15,7 +15,10 @@ export class BequestsComponent implements OnInit {
   getBequests(): void {
     this.bequestService.getBequests()
       .then((res) => {
-        this.bequests = res;
+        this.bequests = [];
+        for (let b of res) {
+          this.bequests.push(new Bequest(b));
+        }
       })
       .catch((err) => {
         console.error(err)
