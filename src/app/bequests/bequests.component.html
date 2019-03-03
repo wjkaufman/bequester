@@ -6,7 +6,53 @@
         <p>{{bequest.name}}</p>
       </li>
     </ul>
+    <a [routerLink]="" (click)="onCreate()"><span>&#43;</span> Add bequest</a>
+    <!-- new bequest editor -->
+    <div class="bequestEditor" *ngIf="creating">
+      <h4>Creating new bequest</h4>
+      <form (ngSubmit)="onSubmit()" #bequestForm="ngForm">
+        
+        <label for="name">Name
+          <input class="form-control" type="text"
+          required
+          [(ngModel)]="newBequest.name" name="name"
+          #name="ngModel"
+          placeholder="Bequest name">
+        </label>
+        <div *ngIf="name.invalid && (name.dirty || name.touched)"
+            class="alert alert-danger">
+          <div *ngIf="name.errors.required">
+            Name is required.
+          </div>
+        </div>
+        
+        <label for="desc">Description
+          <textarea class="form-control" name="desc" rows="8" cols="100"
+          [(ngModel)]="newBequest.desc">
+          </textarea>
+        </label>
+        
+        <label for="dateCreated">Date created
+          <input class="form-control" type="date"
+          required name="dateCreated"
+          [(ngModel)]="newBequest.dateCreated" #date="ngModel">
+        </label>
+        <div class="alert alert-danger"
+        *ngIf="date.invalid && (date.dirty || date.touched)">
+          <div *ngIf="date.errors.required">
+            Date is required.
+          </div>
+          <div *ngIf="date.errors.min">
+            Date is before 1950, I doubt that's accurate...
+          </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </form>
+    </div>
   </div>
+  
+  <!-- right pane for bequest detail view -->
   <div class="col-7">
     <div *ngIf="selectedBequest">
       <app-bequest [bequest]="selectedBequest"></app-bequest>

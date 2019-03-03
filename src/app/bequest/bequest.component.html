@@ -15,12 +15,72 @@
       </li>
     </ul>
   </div>
+  <a [routerLink]="" (click)="onCreateHolding()"><span>&#43;</span> Add holding</a>
+  <!-- new holding editor -->
+  <div class="holdingEditor" *ngIf="creatingHolding">
+    <h4>Creating new holding</h4>
+    <form class="" (ngSubmit)="onSubmitCreateHolding()" #holdingForm="ngForm">
+      <div *ngIf="people">
+        <label for="person">Person
+          <select class="form-control" name="person"
+          required [(ngModel)]="newHolding.personID" #p="ngModel">
+            <option *ngFor="let p of people" [value]="p.personID">
+              {{p.firstname}} {{p.lastname}} ({{p.gradYear}})
+            </option>
+          </select>
+        </label>
+        <div *ngIf="(p.invalid) && (p.dirty || p.touched)"
+            class="alert alert-danger">
+          <div *ngIf="p.errors.required">
+            Person must be selected.
+          </div>
+        </div>
+      </div>
+      
+      <div *ngIf="bequests">
+        <label for="bequest">Bequest
+          <select class="form-control" name="bequest"
+          required [(ngModel)]="newHolding.bequestID" #b="ngModel">
+            <option *ngFor="let b of bequests" [value]="b.bequestID">
+              {{b.name}}, created in {{b.dateCreated}}
+            </option>
+          </select>
+        </label>
+        <div *ngIf="(b.invalid) && (b.dirty || b.touched)"
+            class="alert alert-danger">
+          <div *ngIf="b.errors.required">
+            Bequest must be selected.
+          </div>
+        </div>
+      </div>
+      
+      <label for="dateStarted">Date holding started
+        <input type="date" name="dateStarted" class="form-control"
+        required
+        [(ngModel)]="newHolding.dateStarted" #dateStarted="ngModel">
+      </label>
+      <div *ngIf="(dateStarted.invalid) && (dateStarted.dirty || dateStarted.touched)"
+          class="alert alert-danger">
+        <div *ngIf="dateStarted.errors.required">
+          Start date must be specified.
+        </div>
+      </div>
+      
+      <label for="comment">Comment
+        <input type="text" name="comment" class="form-control"
+        [(ngModel)]="newHolding.comment" #comment="ngModel"
+        placeholder="Comment (e.g. ''Because he's slow.'')">
+      </label>
+      
+      <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+  </div> <!-- end new holding editor -->
   
   <!-- editing bequest -->
   <a [routerLink]="" (click)="onEdit()">Edit</a>
   <div class="bequestEditor" *ngIf="editing">
     <h4>Editing {{bequest.name}} (id#{{bequest.bequestID}})</h4>
-    <form (ngSubmit)="onSubmit()" #bequestForm="ngForm">
+    <form (ngSubmit)="onSubmitEdit()" #bequestForm="ngForm">
       
       <label for="name">Name
         <input class="form-control" type="text"

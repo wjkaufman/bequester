@@ -11,6 +11,8 @@ export class BequestsComponent implements OnInit {
   
   bequests: Bequest[];
   selectedBequest: Bequest;
+  newBequest: Bequest;
+  creating = false;
   
   getBequests(): void {
     this.bequestService.getBequests()
@@ -19,6 +21,26 @@ export class BequestsComponent implements OnInit {
       })
       .catch((err) => {
         console.error(err)
+      })
+  }
+  
+  onCreate() {
+    this.creating = !this.creating;
+    if (this.creating) {
+      this.newBequest = new Bequest({bequestID: 0, name: 'New bequest',
+                                     desc: 'New bequest description',
+                                     dateCreated: new Date()});
+    }
+  }
+  
+  onSubmit() {
+    this.bequestService.createBequest(this.newBequest)
+      .then((res) => {
+        this.creating = false;
+        this.getBequests();
+      })
+      .catch((err) => {
+        console.error(err);
       })
   }
   

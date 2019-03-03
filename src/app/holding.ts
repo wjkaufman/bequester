@@ -5,16 +5,16 @@ export class Holding {
   dateStarted: Date;
   comment: string;
   // other information not stored in holdings table
-  firstname: string;
-  lastname: string;
-  name: string;
-  dateCreated: string;
+  firstname?: string;
+  lastname?: string;
+  name?: string;
+  dateCreated?: string;
   
-  constructor(h: Holding) {
+  constructor(h: any) {
     this.set(h);
   }
   
-  set(h: Holding): void {
+  set(h: any): void {
     this.holdingID = h.holdingID;
     this.personID = h.personID;
     this.bequestID = h.bequestID;

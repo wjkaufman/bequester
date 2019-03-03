@@ -4,11 +4,11 @@ export class Bequest {
   desc: string;
   dateCreated: Date
   
-  constructor(b: Bequest) {
+  constructor(b: any) {
     this.set(b);
   }
   
-  set(b: Bequest): void {
+  set(b: any): void {
     this.bequestID = b.bequestID;
     this.name = b.name;
     this.desc = b.desc;

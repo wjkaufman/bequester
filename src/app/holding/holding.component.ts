@@ -18,34 +18,32 @@ export class HoldingComponent implements OnInit {
   editing = false;
   editedHolding: Holding;
   @Output() updated = new EventEmitter();
+  
   people: Person[];
   bequests: Bequest[];
   
-  logMe(): void {
-    console.log('logging it...')
-    console.log(this.holding)
-    console.log(this.editedHolding)
+  getPeopleAndBequests(): void {
+    this.personService.getPeople()
+      .then((res) => {
+        this.people = res;
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+    this.bequestService.getBequests()
+      .then((res) => {
+        this.bequests = res;
+      })
+      .catch((err) => {
+        console.error(err);
+      })
   }
   
   onEdit(): void {
     this.editing = !this.editing;
     if (this.editing) {
       this.editedHolding = new Holding(this.holding);
-      
-      this.personService.getPeople()
-        .then((res) => {
-          this.people = res;
-        })
-        .catch((err) => {
-          console.error(err);
-        })
-      this.bequestService.getBequests()
-        .then((res) => {
-          this.bequests = res;
-        })
-        .catch((err) => {
-          console.error(err);
-        })
+      this.getPeopleAndBequests();
     }
   }
   
