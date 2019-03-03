@@ -1,13 +1,14 @@
 <div *ngIf="holding">
   
   <div *ngIf="viewType=='bequest'">
-    {{holding.firstname}} {{holding.lastname}}: {{holding.dateStarted}}
+    {{holding.firstname}} {{holding.lastname}}: received {{holding.dateStarted}}
   </div>
   <div *ngIf="viewType=='person'">
-    {{holding.name}} (made on {{holding.dateCreated}}): got it on {{holding.dateStarted}}
+    {{holding.name}} (created {{holding.dateCreated}}) <br>
+    <b>Received:</b> {{holding.dateStarted}}
   </div>
   <div *ngIf="holding.comment">
-    <br> <b>Comment:</b> {{holding.comment}}
+    <b>Comment:</b> {{holding.comment}}
   </div>
   
   <!-- holding editor -->

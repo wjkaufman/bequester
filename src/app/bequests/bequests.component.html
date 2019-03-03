@@ -1,11 +1,15 @@
 <div *ngIf="bequests" class="bequestList row">
-  <div class="col-5">
-    <h2>Bequests ({{bequests.length}} total)</h2>
-    <ul class="bequests">
-      <li *ngFor="let bequest of bequests" (click)="onSelect(bequest)">
+  <div class="col-5 list">
+    <h3>Bequests ({{bequests.length}} total)</h3>
+    <div class="bequests list-group">
+      <a *ngFor="let bequest of bequests"
+      [routerLink]=""
+      class="list-group-item list-group-item-action"
+      [class.active]="bequest == selectedBequest"
+      (click)="onSelect(bequest)">
         <p>{{bequest.name}}</p>
-      </li>
-    </ul>
+      </a>
+    </div>
     <a [routerLink]="" (click)="onCreate()"><span>&#43;</span> Add bequest</a>
     <!-- new bequest editor -->
     <div class="bequestEditor" *ngIf="creating">
@@ -53,7 +57,7 @@
   </div>
   
   <!-- right pane for bequest detail view -->
-  <div class="col-7">
+  <div class="col-7 detail">
     <div *ngIf="selectedBequest">
       <app-bequest [bequest]="selectedBequest"></app-bequest>
     </div>

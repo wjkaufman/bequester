@@ -1,12 +1,16 @@
 <div *ngIf="people" class="peopleList row">
-  <div class="col-5">
-    <h2>People ({{people.length}} total)</h2>
+  <div class="col-5 list">
+    <h3>People ({{people.length}} total)</h3>
 
-    <ul class="people">
-      <li *ngFor="let person of people" (click)="onSelect(person)">
+    <div class="people list-group">
+      <a *ngFor="let person of people"
+      [routerLink]=""
+      class="list-group-item list-group-item-action"
+      [class.active]="person==selectedPerson"
+      (click)="onSelect(person)">
         <p>{{person.firstname}} {{person.lastname}} ({{person.gradYear}})</p>
-      </li>
-    </ul>
+      </a>
+    </div>
     
     <a [routerLink]="" (click)="onCreate()"><span>&#43;</span> Add person</a>
     <!-- new person editor -->
@@ -53,7 +57,7 @@
     </div> <!-- end person editor -->
   </div>
   
-  <div class="col-7">
+  <div class="col-7 detail">
     <div *ngIf="selectedPerson">
       <app-person [person]="selectedPerson"></app-person>
     </div>
