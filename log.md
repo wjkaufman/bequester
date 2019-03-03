@@ -1,5 +1,9 @@
 # Log
 
+### 2019-03-03
+
+I think I'm going to switch gears now and start making it pretty! Hopefully that'll make it much more usable and nice and such.
+
 ### 2019-03-02
 
 Finished writing update functionality (I think), now moving on to create for bequests, person, holdings, in that order.
