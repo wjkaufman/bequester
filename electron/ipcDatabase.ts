@@ -8,7 +8,7 @@ export function ipcDatabase(ipcMain, win, db) {
   //
   
   ipcMain.on('getBequests', (event, arg) => {
-    db.all("SELECT * FROM bequests", (err, bequests) => {
+    db.all("SELECT * FROM bequests order by dateCreated", (err, bequests) => {
         win.webContents.send('getBequestsResponse', bequests)
     });
   });
@@ -20,6 +20,15 @@ export function ipcDatabase(ipcMain, win, db) {
             arg.name, arg.desc, arg.dateCreated, arg.bequestID,
             (err, res) => {
               win.webContents.send('updateBequestResponse', res)
+            });
+  });
+  
+  ipcMain.on('createBequest', (event, arg) => {
+    db.run(`INSERT INTO bequests (bequestID, name, desc, dateCreated)
+              VALUES ((SELECT max(bequestID) + 1 from bequests), ?, ?, ?)`,
+            arg.name, arg.desc, arg.dateCreated,
+            (err, res) => {
+              win.webContents.send('createBequestResponse', res);
             });
   });
   

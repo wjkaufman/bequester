@@ -30,6 +30,15 @@ export class BequestService {
       this.ipc.send('updateBequest', bequest);
     });
   }
+  
+  async createBequest(bequest: Bequest) {
+    return new Promise((resolve, reject) => {
+      this.ipc.once('createBequestResponse', (event, arg) => {
+        resolve(arg);
+      });
+      this.ipc.send('createBequest', bequest);
+    })
+  }
 
   constructor() {
     if ((<any>window).require) {

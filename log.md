@@ -1,5 +1,9 @@
 # Log
 
+### 2019-03-02
+
+Finished writing update functionality (I think), now moving on to create for bequests, person, holdings, in that order.
+
 ### 2019-02-24
 
 Continuing the bequest edit form...

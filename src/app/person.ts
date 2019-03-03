@@ -5,11 +5,11 @@ export class Person {
   position: string;
   gradYear: number;
   
-  constructor(p: Person) {
+  constructor(p: any) {
     this.set(p);
   }
   
-  set(p: Person): void {
+  set(p: any): void {
     this.personID = p.personID;
     this.firstname = p.firstname;
     this.lastname = p.lastname;
