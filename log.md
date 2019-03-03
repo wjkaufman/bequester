@@ -4,6 +4,12 @@
 
 Finished writing update functionality (I think), now moving on to create for bequests, person, holdings, in that order.
 
+It's late, I'm tired. For next time:
+
+- finish create holding on bequest side (identical to what I did for person)
+- start making it pretty?
+- OR add bulk import functionality
+
 ### 2019-02-24
 
 Continuing the bequest edit form...
