@@ -3,4 +3,15 @@ export class Bequest {
   name: string;
   desc: string;
   dateCreated: Date
+  
+  constructor(b: Bequest) {
+    this.set(b);
+  }
+  
+  set(b: Bequest): void {
+    this.bequestID = b.bequestID;
+    this.name = b.name;
+    this.desc = b.desc;
+    this.dateCreated = b.dateCreated;
+  }
 }

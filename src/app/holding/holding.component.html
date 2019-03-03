@@ -1,0 +1,76 @@
+<div *ngIf="holding">
+  
+  <div *ngIf="viewType=='bequest'">
+    {{holding.firstname}} {{holding.lastname}}: {{holding.dateStarted}}
+  </div>
+  <div *ngIf="viewType=='person'">
+    {{holding.name}} (made on {{holding.dateCreated}}): got it on {{holding.dateStarted}}
+  </div>
+  <div *ngIf="holding.comment">
+    <br> <b>Comment:</b> {{holding.comment}}
+  </div>
+  
+  <!-- holding editor -->
+  <a [routerLink]="" (click)="onEdit()">Edit</a>
+  <div class="holdingEditor" *ngIf="editing">
+    <h6>Editing {{holding.firstname}} {{holding.lastname}}'s holding of
+      {{holding.name}}
+      (id#{{holding.holdingID}})</h6>
+    <form class="" (ngSubmit)="onSubmit()" #holdingForm="ngForm">
+      <div *ngIf="people">
+        <label for="person">Person
+          <select class="form-control" name="person"
+          required [(ngModel)]="editedHolding.personID" #person="ngModel">
+            <option *ngFor="let person of people" [value]="person.personID">
+              {{person.firstname}} {{person.lastname}} ({{person.gradYear}})
+            </option>
+          </select>
+        </label>
+        <div *ngIf="(person.invalid) && (person.dirty || person.touched)"
+            class="alert alert-danger">
+          <div *ngIf="person.errors.required">
+            Person must be selected.
+          </div>
+        </div>
+      </div>
+      
+      <div *ngIf="bequests">
+        <label for="bequest">Bequest
+          <select class="form-control" name="bequest"
+          required [(ngModel)]="editedHolding.bequestID" #bequest="ngModel">
+            <option *ngFor="let b of bequests" [value]="b.bequestID">
+              {{b.name}}, created in {{b.dateCreated}}
+            </option>
+          </select>
+        </label>
+        <div *ngIf="(bequest.invalid) && (bequest.dirty || bequest.touched)"
+            class="alert alert-danger">
+          <div *ngIf="bequest.errors.required">
+            Bequest must be selected.
+          </div>
+        </div>
+      </div>
+      
+      <label for="dateStarted">Date holding started
+        <input type="date" name="dateStarted" class="form-control"
+        required
+        [(ngModel)]="editedHolding.dateStarted" #dateStarted="ngModel">
+      </label>
+      <div *ngIf="(dateStarted.invalid) && (dateStarted.dirty || dateStarted.touched)"
+          class="alert alert-danger">
+        <div *ngIf="dateStarted.errors.required">
+          Start date must be specified.
+        </div>
+      </div>
+      
+      <label for="comment">Comment
+        <input type="text" name="comment" class="form-control"
+        [(ngModel)]="editedHolding.comment" #comment="ngModel"
+        placeholder="Comment (e.g. ''Because he's slow.'')">
+      </label>
+      
+      <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+  </div> <!-- end editor -->
+  
+</div>

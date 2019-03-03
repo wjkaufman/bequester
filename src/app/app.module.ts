@@ -9,6 +9,7 @@ import { BequestComponent } from './bequest/bequest.component';
 import { BequestsComponent } from './bequests/bequests.component';
 import { PersonComponent } from './person/person.component';
 import { PeopleComponent } from './people/people.component';
+import { HoldingComponent } from './holding/holding.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { PeopleComponent } from './people/people.component';
     BequestComponent,
     BequestsComponent,
     PersonComponent,
-    PeopleComponent
+    PeopleComponent,
+    HoldingComponent
   ],
   imports: [
     BrowserModule,

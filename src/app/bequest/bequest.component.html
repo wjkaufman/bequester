@@ -1,34 +1,64 @@
 <div *ngIf="bequest" class="bequest">
-  <h4>{{bequest.name}}</h4>
+  <h4>
+    {{bequest.name}}
+  </h4>
   Bequest created in {{bequest.dateCreated}}
   <h6>Description</h6>
   <p>{{bequest.desc}}</p>
-  
-  <!-- editing bequest -->
-  <button type="button" (click)="editing=!editing">Edit bequest</button>
-  <form *ngIf="editing" (ngSubmit)="onSubmit">
-    <label for="name">Name
-      <input class="form-control" type="text"
-      required
-      [(ngModel)]="bequest.name" name="name"
-      placeholder="Bequest name">
-    </label>
-    <label for="desc">Description
-      <textarea class="form-control" name="desc" rows="8" cols="80"
-      [(ngModel)]="bequest.desc">
-      </textarea>
-    </label>
-    
-    <button type="submit" class="btn btn-success">Submit</button>
-  </form>
   
   <!-- show bequest holdings -->
   <div *ngIf="holdings">
     <ul>
       <li *ngFor="let holding of holdings">
-        {{holding.firstname}} {{holding.lastname}}: {{holding.dateStarted}}
+        <app-holding [holding]="holding" [viewType]="'bequest'"
+        (updated)="getHoldings()"></app-holding>
       </li>
     </ul>
+  </div>
+  
+  <!-- editing bequest -->
+  <a [routerLink]="" (click)="onEdit()">Edit</a>
+  <div class="bequestEditor" *ngIf="editing">
+    <h4>Editing {{bequest.name}} (id#{{bequest.bequestID}})</h4>
+    <form (ngSubmit)="onSubmit()" #bequestForm="ngForm">
+      
+      <label for="name">Name
+        <input class="form-control" type="text"
+        required
+        [(ngModel)]="editedBequest.name" name="name"
+        #name="ngModel"
+        placeholder="Bequest name">
+      </label>
+      <div *ngIf="name.invalid && (name.dirty || name.touched)"
+          class="alert alert-danger">
+        <div *ngIf="name.errors.required">
+          Name is required.
+        </div>
+      </div>
+      
+      <label for="desc">Description
+        <textarea class="form-control" name="desc" rows="8" cols="80"
+        [(ngModel)]="editedBequest.desc">
+        </textarea>
+      </label>
+      
+      <label for="dateCreated">Date created
+        <input class="form-control" type="date"
+        required name="dateCreated"
+        [(ngModel)]="editedBequest.dateCreated" #date="ngModel">
+      </label>
+      <div class="alert alert-danger"
+      *ngIf="date.invalid && (date.dirty || date.touched)">
+        <div *ngIf="date.errors.required">
+          Date is required.
+        </div>
+        <div *ngIf="date.errors.min">
+          Date is before 1950, I doubt that's accurate...
+        </div>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-success">Submit</button>
+    </form>
   </div>
   
 </div>

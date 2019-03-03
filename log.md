@@ -1,5 +1,9 @@
 # Log
 
+### 2019-02-24
+
+Continuing the bequest edit form...
+
 ### 2019-02-23
 
 On 2/18 I was working on holdings too...
@@ -7,6 +11,8 @@ On 2/18 I was working on holdings too...
 So I added holdings stuff to bequests, today I'll add to people as well.
 
 Also figured out how to (I think) properly sanitize SQL queries.
+
+**TO DO NEXT: figure out forms with angular (validation would be nice, but really just need to write update SQL queries at a minimum).**
 
 ### 2019-02-09
 
