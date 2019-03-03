@@ -37,7 +37,7 @@ export function ipcDatabase(ipcMain, win, db) {
   //
   
   ipcMain.on('getPeople', (event, arg) => {
-    db.all('select * from people', (err, people) => {
+    db.all('select * from people ORDER BY gradYear, lastname', (err, people) => {
       win.webContents.send('getPeopleResponse', people)
     })
   })
@@ -50,6 +50,15 @@ export function ipcDatabase(ipcMain, win, db) {
           (err, res) => {
             win.webContents.send('updatePersonResponse', res);
           });
+  });
+  
+  ipcMain.on('createPerson', (event, arg) => {
+    db.run(`INSERT INTO people (personID, firstname, lastname, position, gradYear)
+              VALUES ((SELECT max(personID) + 1 from people), ?, ?, ?, ?)`,
+            arg.firstname, arg.lastname, arg.position, arg.gradYear,
+            (err, res) => {
+              win.webContents.send('createPersonResponse', res);
+            });
   });
   
   //

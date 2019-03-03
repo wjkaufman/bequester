@@ -30,7 +30,16 @@ export class PersonService {
       this.ipc.send('updatePerson', p);
     })
   }
-
+  
+  async createPerson(p: Person) {
+    return new Promise((resolve, reject) => {
+      this.ipc.once('createPersonResponse', (event, arg) => {
+        resolve(arg);
+      });
+      this.ipc.send('createPerson', p);
+    })
+  }
+  
   constructor() {
     if ((<any>window).require) {
       try {
