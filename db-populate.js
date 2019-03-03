@@ -21,7 +21,7 @@ db.serialize(function() {
     
   db.run(`CREATE TABLE if not exists holdings (
       holdingID integer primary key,
-      personID integer not null, bequestID not null,
+      personID integer not null, bequestID integer not null,
       dateStarted text not null, comment text
     )`);
   

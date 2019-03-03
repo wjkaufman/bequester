@@ -35,12 +35,21 @@ export class HoldingService {
     })
   }
   
-  async updateHolding(holding: Holding) {
+  async updateHolding(h: Holding) {
     return new Promise((resolve, reject) => {
       this.ipc.once('updateHoldingResponse', (event, arg) => {
         resolve(arg);
       });
-      this.ipc.send('updateHolding', holding);
+      this.ipc.send('updateHolding', h);
+    })
+  }
+  
+  async createHolding(h: Holding) {
+    return new Promise((resolve, reject) => {
+      this.ipc.once('createHoldingResponse', (event, arg) => {
+        resolve(arg);
+      });
+      this.ipc.send('createHolding', h);
     })
   }
 

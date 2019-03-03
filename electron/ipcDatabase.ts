@@ -66,9 +66,9 @@ export function ipcDatabase(ipcMain, win, db) {
   //
   
   ipcMain.on('getBequestHoldings', (event, arg) => {
-    db.all(`select * from holdings a
-              join bequests b on a.bequestID = b.bequestID
-              join people c on a.personID = c.personID
+    db.all(`SELECT * FROM holdings a
+              JOIN bequests b on a.bequestID = b.bequestID
+              JOIN people c on a.personID = c.personID
               where a.bequestID = ?
               order by a.dateStarted`, arg,
             (err, holdings) => {
@@ -77,9 +77,9 @@ export function ipcDatabase(ipcMain, win, db) {
   });
   
   ipcMain.on('getPersonHoldings', (event, arg) => {
-    db.all(`select * from holdings a
-              join bequests b on a.bequestID = b.bequestID
-              join people c on a.personID = c.personID
+    db.all(`SELECT * FROM holdings a
+              JOIN bequests b on a.bequestID = b.bequestID
+              JOIN people c on a.personID = c.personID
               where c.personID = ?
               order by a.dateStarted`, arg,
             (err, holdings) => {
@@ -95,4 +95,14 @@ export function ipcDatabase(ipcMain, win, db) {
               win.webContents.send('updateHoldingResponse', res);
             });
   });
+  
+  ipcMain.on('createHolding', (event, arg) => {
+    db.run(`INSERT INTO holdings (holdingID, personID, bequestID,
+              dateStarted, comment) VALUES
+              ((SELECT max(holdingID) + 1 from holdings), ?, ?, ?, ?)`,
+            arg.personID, arg.bequestID, arg.dateStarted, arg.comment,
+            (err, res) => {
+              win.webContents.send('createHoldingResponse', res);
+            });
+  })
 };

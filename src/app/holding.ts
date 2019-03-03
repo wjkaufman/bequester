@@ -5,10 +5,10 @@ export class Holding {
   dateStarted: Date;
   comment: string;
   // other information not stored in holdings table
-  firstname: string;
-  lastname: string;
-  name: string;
-  dateCreated: string;
+  firstname?: string;
+  lastname?: string;
+  name?: string;
+  dateCreated?: string;
   
   constructor(h: any) {
     this.set(h);
