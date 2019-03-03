@@ -1,11 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Bequest } from '../bequest';
 import { Person } from '../person';
 import { Holding } from '../holding';
 import { BequestService } from '../bequest.service';
 import { PersonService } from '../person.service';
 import { HoldingService } from '../holding.service';
-
 
 @Component({
   selector: 'app-holding',
@@ -18,6 +17,7 @@ export class HoldingComponent implements OnInit {
   @Input() viewType: string; // will be either 'bequest' or 'person'
   editing = false;
   editedHolding: Holding;
+  @Output() updated = new EventEmitter();
   people: Person[];
   bequests: Bequest[];
   
@@ -55,6 +55,7 @@ export class HoldingComponent implements OnInit {
         this.holding.set(this.editedHolding);
         // TODO figure out how to refresh the page?!?!?!?
         this.editing = false;
+        this.updated.emit();
       })
       .catch((err) => {
         console.error(err);

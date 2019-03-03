@@ -10,7 +10,8 @@
     <h4>Holdings</h4>
     <ul>
       <li *ngFor="let holding of holdings">
-        <app-holding [holding]="holding" [viewType]="'person'"></app-holding>
+        <app-holding [holding]="holding" [viewType]="'person'"
+        (updated)="getHoldings()"></app-holding>
       </li>
     </ul>
   </div>
