@@ -1,5 +1,5 @@
 <div *ngIf="people" class="peopleList row">
-  <div class="col-5 list">
+  <div class="col-5" id="list">
     <h3>People ({{people.length}} total)</h3>
 
     <div class="people list-group">
@@ -57,7 +57,7 @@
     </div> <!-- end person editor -->
   </div>
   
-  <div class="col-7 detail">
+  <div class="col-7" id="detail">
     <div *ngIf="selectedPerson">
       <app-person [person]="selectedPerson"></app-person>
     </div>
