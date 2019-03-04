@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100vh;
+}
+
+#list, #detail {
+  height: 90vh;
+  overflow: scroll;
+}

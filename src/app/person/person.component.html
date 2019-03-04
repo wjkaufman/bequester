@@ -3,17 +3,16 @@
   <h4>{{person.firstname}} {{person.lastname}}
     ({{person.gradYear}})
   </h4>
-  
-  <p>Position: {{person.position}}</p>
+  <p><b>Position:</b> {{person.position}}</p>
   
   <div *ngIf="holdings">
     <h4>Holdings</h4>
-    <ul>
-      <li *ngFor="let holding of holdings">
+    <div class="list-group">
+      <a *ngFor="let holding of holdings" class="list-group-item">
         <app-holding [holding]="holding" [viewType]="'person'"
         (updated)="getHoldings()"></app-holding>
-      </li>
-    </ul>
+      </a>
+    </div>
   </div>
   <a [routerLink]="" (click)="onCreateHolding()"><span>&#43;</span> Add holding</a>
   <!-- new holding editor -->
@@ -75,6 +74,8 @@
       <button type="submit" class="btn btn-success">Submit</button>
     </form>
   </div> <!-- end new holding editor -->
+  
+  <br><br>
   
   <!-- person editor -->
   <a [routerLink]="" (click)="onEdit()">Edit</a>

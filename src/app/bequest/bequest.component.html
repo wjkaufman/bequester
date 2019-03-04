@@ -2,18 +2,20 @@
   <h4>
     {{bequest.name}}
   </h4>
-  Bequest created in {{bequest.dateCreated}}
-  <h6>Description</h6>
-  <p>{{bequest.desc}}</p>
+  <p>
+    <b>Created:</b> {{bequest.dateCreated}} <br>
+    <b>Description:</b> {{bequest.desc}}
+  </p>
   
   <!-- show bequest holdings -->
   <div *ngIf="holdings">
-    <ul>
-      <li *ngFor="let holding of holdings">
+    <h4>Holdings</h4>
+    <div class="holdings list-group">
+      <a *ngFor="let holding of holdings" class="list-group-item">
         <app-holding [holding]="holding" [viewType]="'bequest'"
         (updated)="getHoldings()"></app-holding>
-      </li>
-    </ul>
+      </a>
+    </div>
   </div>
   <a [routerLink]="" (click)="onCreateHolding()"><span>&#43;</span> Add holding</a>
   <!-- new holding editor -->
@@ -75,6 +77,8 @@
       <button type="submit" class="btn btn-success">Submit</button>
     </form>
   </div> <!-- end new holding editor -->
+  
+  <br><br>
   
   <!-- editing bequest -->
   <a [routerLink]="" (click)="onEdit()">Edit</a>
