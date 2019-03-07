@@ -6,6 +6,16 @@ I think I'm going to switch gears now and start making it pretty! Hopefully that
 
 Made things more pretty. Still need to figure out independent scrollbars...
 
+Finished making things pretty for now. Now to do:
+
+- Add bulk import functionality, start looking at getting bequests into software
+- Other small features
+    - Click on person to go to person view, click bequest to go to bequest view
+    - More easily visualize _lineage_, show year only for dates?
+- Fix editor situation, create separate components for editors so logic/templates are cleaner
+
+All to do for another day though. I'm going to bed now.
+
 ### 2019-03-02
 
 Finished writing update functionality (I think), now moving on to create for bequests, person, holdings, in that order.
