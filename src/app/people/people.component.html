@@ -1,7 +1,11 @@
 <div *ngIf="people" class="peopleList row">
   <div class="col-5" id="list">
     <h3>People ({{people.length}} total)</h3>
-
+    <!-- search bar to narrow down people -->
+    <div class="searchbar">
+      <input [(ngModel)]="searchQuery" (keyup.enter)="onSearch(searchQuery)"
+      type="text" name="search" placeholder="Search..." class="form-control">
+    </div>
     <div class="people list-group">
       <a *ngFor="let person of people"
       [routerLink]=""
@@ -57,6 +61,7 @@
     </div> <!-- end person editor -->
   </div>
   
+  <!-- person detail view -->
   <div class="col-7" id="detail">
     <div *ngIf="selectedPerson">
       <app-person [person]="selectedPerson"></app-person>

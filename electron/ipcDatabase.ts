@@ -42,6 +42,20 @@ export function ipcDatabase(ipcMain, win, db) {
     })
   })
   
+  ipcMain.on('getPeopleByString', (event, arg) => {
+    db.all(`SELECT * FROM people
+            WHERE firstname LIKE '%' || ?1 || '%' OR
+             lastname LIKE '%' || ?1 || '%' OR
+             position LIKE '%' || ?1 || '%' OR
+             CAST(gradYear AS TEXT) LIKE '%' || ?1 || '%'
+            ORDER BY gradYear, lastname`, arg, (err, people) => {
+      if (err) {
+        console.error(err);
+      }
+      win.webContents.send('getPeopleByStringResponse', people)
+    })
+  })
+  
   ipcMain.on('updatePerson', (event, arg) => {
     db.run(`UPDATE people SET
               firstname = ?, lastname = ?, position = ?, gradYear = ?

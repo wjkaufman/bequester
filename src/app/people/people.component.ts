@@ -52,6 +52,20 @@ export class PeopleComponent implements OnInit {
       this.selectedPerson = person;
     }
   }
+  
+  onSearch(searchQuery: string) {
+    if (searchQuery == '') {
+      this.getPeople();
+    } else {
+      this.personService.getPeopleByString(searchQuery)
+        .then(res => {
+          this.people = res;
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
+  }
 
   constructor(private personService: PersonService,
               private route: ActivatedRoute) { }

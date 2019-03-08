@@ -61,7 +61,6 @@ export class BequestsComponent implements OnInit {
       .then(res => {
         this.route.params.subscribe(params => {
           if (params['bequestID']) {
-            console.log(params);
             for (let b of this.bequests) {
               if (b.bequestID == +params['bequestID']) {
                 this.selectedBequest = b;
