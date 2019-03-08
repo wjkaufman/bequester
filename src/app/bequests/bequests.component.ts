@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Bequest } from '../bequest';
 import { BequestService } from '../bequest.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-bequests',
@@ -14,14 +15,14 @@ export class BequestsComponent implements OnInit {
   newBequest: Bequest;
   creating = false;
   
-  getBequests(): void {
-    this.bequestService.getBequests()
+  getBequests(): Promise<void> {
+    return this.bequestService.getBequests()
       .then((res) => {
         this.bequests = res;
       })
       .catch((err) => {
         console.error(err)
-      })
+      });
   }
   
   onCreate() {
@@ -52,10 +53,27 @@ export class BequestsComponent implements OnInit {
     }
   }
 
-  constructor(private bequestService: BequestService) { }
+  constructor(private bequestService: BequestService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getBequests();
+    this.getBequests()
+      .then(res => {
+        this.route.params.subscribe(params => {
+          if (params['bequestID']) {
+            console.log(params);
+            for (let b of this.bequests) {
+              if (b.bequestID == +params['bequestID']) {
+                this.selectedBequest = b;
+                break;
+              }
+            }
+          }
+        })
+      })
+      .catch(err => {
+        console.error(err);
+      })
   }
 
 }

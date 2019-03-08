@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Person } from '../person';
 import { PersonService } from '../person.service';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-people',
@@ -14,8 +16,8 @@ export class PeopleComponent implements OnInit {
   creating = false;
   newPerson: Person;
   
-  getPeople(): void {
-    this.personService.getPeople()
+  getPeople(): Promise<void> {
+    return this.personService.getPeople()
       .then((res) => {
         this.people = res;
       })
@@ -51,10 +53,27 @@ export class PeopleComponent implements OnInit {
     }
   }
 
-  constructor(private personService: PersonService) { }
+  constructor(private personService: PersonService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getPeople();
+    this.getPeople()
+      .then((res) => {
+        this.route.params.subscribe(params => {
+          // check if any parameters were passed
+          if (params['personID']) {
+            for (let p of this.people) {
+              if (p.personID == +params['personID']) {
+                this.selectedPerson = p;
+                break;
+              }
+            }
+          }
+        });
+      })
+      .catch(err => {
+        console.error(err);
+      })
   }
 
 }

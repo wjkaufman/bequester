@@ -1,12 +1,12 @@
 <div *ngIf="holding">
   
   <div *ngIf="viewType=='bequest'">
-    <a routerLink = "/people">
+    <a [routerLink] = "['/people', holding.personID]">
       {{holding.firstname}} {{holding.lastname}}
     </a>: received {{holding.dateStarted}}
   </div>
   <div *ngIf="viewType=='person'">
-    <a routerLink="/bequests">
+    <a [routerLink]="['/bequests', holding.bequestID]">
       {{holding.name}}
     </a> (created {{holding.dateCreated}}) <br>
     <b>Received:</b> {{holding.dateStarted}}

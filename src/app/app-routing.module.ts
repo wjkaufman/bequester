@@ -5,7 +5,9 @@ import { PeopleComponent } from './people/people.component';
 
 const routes: Routes = [
   { path: 'bequests', component: BequestsComponent },
-  { path: 'people', component: PeopleComponent }
+  { path: 'bequests/:bequestID', component: BequestsComponent },
+  { path: 'people', component: PeopleComponent },
+  { path: 'people/:personID', component: PeopleComponent }
 ];
 
 @NgModule({
