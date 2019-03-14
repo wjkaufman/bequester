@@ -44,6 +44,13 @@ export function ipcDatabase(ipcMain, win, db) {
             });
   });
   
+  ipcMain.on('deleteBequest', (event, arg) => {
+    db.run(`DELETE FROM bequests WHERE bequestID = ?`,
+      arg.bequestID, (err, res) => {
+        win.webContents.send('deleteBequestResponse');
+      });
+  });
+  
   //
   // PEOPLE
   //

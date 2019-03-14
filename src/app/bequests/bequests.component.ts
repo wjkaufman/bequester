@@ -30,7 +30,9 @@ export class BequestsComponent implements OnInit {
     if (this.creating) {
       this.newBequest = new Bequest({bequestID: 0, name: 'New bequest',
                                      desc: 'New bequest description',
-                                     dateCreated: new Date()});
+                                     dateCreated: (new Date())
+                                                    .toISOString()
+                                                    .substring(0,10)});
     }
   }
   
@@ -51,6 +53,13 @@ export class BequestsComponent implements OnInit {
     } else {
       this.selectedBequest = bequest;
     }
+  }
+  
+  onDelete(bequest: Bequest): void {
+    // TODO fill this in
+    // I want to soft-delete everything (hard-deleting is scary)
+    // so need to update tables in db to add column
+    // then flesh out that functionality
   }
 
   onSearch(query: string) {

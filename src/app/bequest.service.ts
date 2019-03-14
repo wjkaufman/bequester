@@ -52,6 +52,15 @@ export class BequestService {
       this.ipc.send('createBequest', bequest);
     })
   }
+  
+  async deleteBequest(bequest: Bequest) {
+    return new Promise((resolve, reject) => {
+      this.ipc.once('deleteBequestResponse', (event, arg) => {
+        resolve(arg);
+      });
+      this.ipc.send('deleteBequest', bequest);
+    })
+  }
 
   constructor() {
     if ((<any>window).require) {

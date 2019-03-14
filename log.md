@@ -4,6 +4,12 @@
 
 Quick little add on the plane: bequest searchbar now works!
 
+Apparently to add colums to tables:
+`ALTER TABLE bequests ADD COLUMN isDeleted integer;`
+Then did this to make everything not deleted:
+`UPDATE bequests SET isDeleted = 0;`
+Fair enough!
+
 ### 2019-03-08
 
 Well, despite my best intentions of going to sleep, my body didn't want to and I've stayed up working on this. Still don't feel sleepy, but I'll give it another go once I jot down what I've done.

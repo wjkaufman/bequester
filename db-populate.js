@@ -9,14 +9,15 @@ db.serialize(function() {
   // create bequests table
   db.run(`CREATE TABLE if not exists bequests (
       bequestID integer primary key,
-      name text not null, desc text, dateCreated text
+      name text not null, desc text, dateCreated text,
+      isDeleted integer
     )`);
     
   // create people table
   db.run(`CREATE TABLE if not exists people (
       personID integer primary key,
       firstname text not null, lastname text not null,
-      position text, gradYear integer
+      position text, gradYear integer, isDeleted integer
     )`);
     
   db.run(`CREATE TABLE if not exists holdings (
@@ -34,19 +35,19 @@ db.serialize(function() {
   // bequests
   db.run(`insert into bequests values (
     (select max(bequestID)+1 from bequests),
-    'H150 betting shirt', 'Old and gross, ew!', '1905-02-18'
+    'H150 betting shirt', 'Old and gross, ew!', '1905-02-18', 0
   )`)
   db.run(`insert into bequests values (
     (select max(bequestID)+1 from bequests),
-    'C150 betting shirt', null, '1905-02-18'
+    'C150 betting shirt', null, '1905-02-18', 0
   )`)
   db.run(`insert into bequests values (
     (select max(bequestID)+1 from bequests),
-    'P150 betting shirt', 'Nice and fresh.', '2008-11-18'
+    'P150 betting shirt', 'Nice and fresh.', '2008-11-18', 0
   )`)
   db.run(`insert into bequests values (
     (select max(bequestID)+1 from bequests),
-    'Y150 betting shirt', 'Lots of holes in it', '1862-03-21'
+    'Y150 betting shirt', 'Lots of holes in it', '1862-03-21', 0
   )`)
   
   console.log('Created dummy bequests:');
@@ -54,19 +55,19 @@ db.serialize(function() {
   // people
   db.run(`insert into people values (
     (select max(personID)+1 from people),
-    'Walter', 'Banfield', 'Rower', 2017
+    'Walter', 'Banfield', 'Rower', 2017, 0
   )`)
   db.run(`insert into people values (
     (select max(personID)+1 from people),
-    'Sean', 'Oh', 'Rower', 2017
+    'Sean', 'Oh', 'Rower', 2017, 0
   )`)
   db.run(`insert into people values (
     (select max(personID)+1 from people),
-    'Jeff', 'Gao', 'Rower', 2018
+    'Jeff', 'Gao', 'Rower', 2018, 0
   )`)
   db.run(`insert into people values (
     (select max(personID)+1 from people),
-    'Kiana', 'Outen', 'Coxswain', 2018
+    'Kiana', 'Outen', 'Coxswain', 2018, 0
   )`)
   
   console.log('Created dummy people (not that they\'re dumb):');
