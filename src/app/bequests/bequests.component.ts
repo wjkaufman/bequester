@@ -53,6 +53,20 @@ export class BequestsComponent implements OnInit {
     }
   }
 
+  onSearch(query: string) {
+    if (query == '') {
+      this.getBequests();
+    } else {
+      this.bequestService.getBequestsByString(query)
+        .then(res => {
+          this.bequests = res;
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
+  }
+
   constructor(private bequestService: BequestService,
               private route: ActivatedRoute) { }
 

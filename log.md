@@ -1,5 +1,22 @@
 # Log
 
+### 2019-03-14
+
+Quick little add on the plane: bequest searchbar now works!
+
+### 2019-03-08
+
+Well, despite my best intentions of going to sleep, my body didn't want to and I've stayed up working on this. Still don't feel sleepy, but I'll give it another go once I jot down what I've done.
+
+- Added routes between bequests and people (actually pretty simple)
+- Added a searchbar for people, will be easy to do for bequests too
+
+Next steps:
+
+- Load bequests, people into db
+- Tackle the editor issue (will be super helpful)
+- When making a new holding, add the option to create a new person (for frosh)
+
 ### 2019-03-03
 
 I think I'm going to switch gears now and start making it pretty! Hopefully that'll make it much more usable and nice and such.

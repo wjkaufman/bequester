@@ -13,6 +13,18 @@ export function ipcDatabase(ipcMain, win, db) {
     });
   });
   
+  ipcMain.on('getBequestsByString', (event, arg) => {
+    db.all(`SELECT * FROM bequests
+            WHERE (name || ' ' || desc || ' ' || dateCreated)
+              LIKE '%' || ?1 || '%'
+            ORDER BY dateCreated`, arg, (err, bequests) => {
+      if (err) {
+        console.error(err);
+      }
+      win.webContents.send('getBequestsByStringResponse', bequests)
+    })
+  })
+  
   ipcMain.on('updateBequest', (event, arg) => {
     db.run(`UPDATE bequests SET
               name = ?, desc = ?, dateCreated = ?
@@ -42,6 +54,7 @@ export function ipcDatabase(ipcMain, win, db) {
     })
   })
   
+  // TODO change this to match format for bequest query
   ipcMain.on('getPeopleByString', (event, arg) => {
     db.all(`SELECT * FROM people
             WHERE firstname LIKE '%' || ?1 || '%' OR

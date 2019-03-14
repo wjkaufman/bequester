@@ -22,6 +22,19 @@ export class BequestService {
     });
   }
   
+  async getBequestsByString(query: string) {
+    return new Promise<Bequest[]>((resolve, reject) => {
+      this.ipc.once('getBequestsByStringResponse', (event, arg) => {
+        let bequests: Bequest[] = [];
+        for (let b of arg) {
+          bequests.push(new Bequest(b));
+        }
+        resolve(bequests);
+      });
+      this.ipc.send('getBequestsByString', query);
+    });
+  }
+  
   async updateBequest(bequest: Bequest) {
     return new Promise<Bequest[]>((resolve, reject) => {
       this.ipc.once('updateBequestResponse', (event, arg) => {

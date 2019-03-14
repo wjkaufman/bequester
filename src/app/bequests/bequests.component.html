@@ -1,6 +1,10 @@
 <div *ngIf="bequests" class="bequestList row">
   <div class="col-5" id="list">
     <h3>Bequests ({{bequests.length}} total)</h3>
+    <div class="searchbar">
+      <input [(ngModel)]="searchQuery" (keyup.enter)="onSearch(searchQuery)"
+      type="text" name="search" placeholder="Search..." class="form-control">
+    </div>
     <div class="bequests list-group">
       <a *ngFor="let bequest of bequests"
       [routerLink]=""

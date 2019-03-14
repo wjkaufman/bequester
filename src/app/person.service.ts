@@ -22,7 +22,7 @@ export class PersonService {
     });
   }
   
-  async getPeopleByString(searchQuery: string) {
+  async getPeopleByString(query: string) {
     return new Promise<Person[]>((resolve, reject) => {
       this.ipc.once('getPeopleByStringResponse', (event, arg) => {
         let people: Person[] = [];
@@ -31,7 +31,7 @@ export class PersonService {
         }
         resolve(people);
       });
-      this.ipc.send('getPeopleByString', searchQuery);
+      this.ipc.send('getPeopleByString', query);
     });
   }
   
