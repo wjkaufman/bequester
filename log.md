@@ -10,6 +10,10 @@ Then did this to make everything not deleted:
 `UPDATE bequests SET isDeleted = 0;`
 Fair enough!
 
+Finished up making the searchbar and soft-delete functionality. Merged and cleaned up the issues on GitHub.
+
+Next steps: consolidate holdings editor into its own component (maybe even make separate components for all object editors?). But I'm tired so I'll do it later.
+
 ### 2019-03-08
 
 Well, despite my best intentions of going to sleep, my body didn't want to and I've stayed up working on this. Still don't feel sleepy, but I'll give it another go once I jot down what I've done.
