@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Bequest } from '../bequest';
 import { BequestService } from '../bequest.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-bequests',
@@ -13,15 +14,16 @@ export class BequestsComponent implements OnInit {
   selectedBequest: Bequest;
   newBequest: Bequest;
   creating = false;
+  deleting = false;
   
-  getBequests(): void {
-    this.bequestService.getBequests()
+  getBequests(): Promise<void> {
+    return this.bequestService.getBequests()
       .then((res) => {
         this.bequests = res;
       })
       .catch((err) => {
         console.error(err)
-      })
+      });
   }
   
   onCreate() {
@@ -29,7 +31,9 @@ export class BequestsComponent implements OnInit {
     if (this.creating) {
       this.newBequest = new Bequest({bequestID: 0, name: 'New bequest',
                                      desc: 'New bequest description',
-                                     dateCreated: new Date()});
+                                     dateCreated: (new Date())
+                                                    .toISOString()
+                                                    .substring(0,10)});
     }
   }
   
@@ -51,11 +55,53 @@ export class BequestsComponent implements OnInit {
       this.selectedBequest = bequest;
     }
   }
+  
+  onDelete(bequest: Bequest): void {
+    bequest.isDeleted = 1;
+    this.bequestService.updateBequest(bequest)
+      .then(res => {
+        this.deleting = false;
+        this.getBequests();
+      })
+      .catch(err => {
+        console.error(err);
+      })
+  }
 
-  constructor(private bequestService: BequestService) { }
+  onSearch(query: string) {
+    if (query == '') {
+      this.getBequests();
+    } else {
+      this.bequestService.getBequestsByString(query)
+        .then(res => {
+          this.bequests = res;
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
+  }
+
+  constructor(private bequestService: BequestService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getBequests();
+    this.getBequests()
+      .then(res => {
+        this.route.params.subscribe(params => {
+          if (params['bequestID']) {
+            for (let b of this.bequests) {
+              if (b.bequestID == +params['bequestID']) {
+                this.selectedBequest = b;
+                break;
+              }
+            }
+          }
+        })
+      })
+      .catch(err => {
+        console.error(err);
+      })
   }
 
 }

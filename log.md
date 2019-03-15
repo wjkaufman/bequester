@@ -1,10 +1,43 @@
 # Log
 
+### 2019-03-14
+
+Quick little add on the plane: bequest searchbar now works!
+
+Apparently to add colums to tables:
+`ALTER TABLE bequests ADD COLUMN isDeleted integer;`
+Then did this to make everything not deleted:
+`UPDATE bequests SET isDeleted = 0;`
+Fair enough!
+
+### 2019-03-08
+
+Well, despite my best intentions of going to sleep, my body didn't want to and I've stayed up working on this. Still don't feel sleepy, but I'll give it another go once I jot down what I've done.
+
+- Added routes between bequests and people (actually pretty simple)
+- Added a searchbar for people, will be easy to do for bequests too
+
+Next steps:
+
+- Load bequests, people into db
+- Tackle the editor issue (will be super helpful)
+- When making a new holding, add the option to create a new person (for frosh)
+
 ### 2019-03-03
 
 I think I'm going to switch gears now and start making it pretty! Hopefully that'll make it much more usable and nice and such.
 
 Made things more pretty. Still need to figure out independent scrollbars...
+
+Finished making things pretty for now. Now to do:
+
+- Add bulk import functionality, start looking at getting bequests into software
+- Other small features
+    - Click on person to go to person view, click bequest to go to bequest view
+    - More easily visualize _lineage_, show year only for dates?
+- Fix editor situation, create separate components for editors so logic/templates are cleaner
+
+All to do for another day though. I'm going to bed now.
 
 ### 2019-03-02
 
