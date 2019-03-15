@@ -11,6 +11,7 @@ import { PersonComponent } from './person/person.component';
 import { PeopleComponent } from './people/people.component';
 import { HoldingComponent } from './holding/holding.component';
 import { HoldingEditorComponent } from './holding-editor/holding-editor.component';
+import { HoldingListComponent } from './holding-list/holding-list.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HoldingEditorComponent } from './holding-editor/holding-editor.componen
     PersonComponent,
     PeopleComponent,
     HoldingComponent,
-    HoldingEditorComponent
+    HoldingEditorComponent,
+    HoldingListComponent
   ],
   imports: [
     BrowserModule,
