@@ -10,6 +10,7 @@ import { BequestsComponent } from './bequests/bequests.component';
 import { PersonComponent } from './person/person.component';
 import { PeopleComponent } from './people/people.component';
 import { HoldingComponent } from './holding/holding.component';
+import { HoldingEditorComponent } from './holding-editor/holding-editor.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { HoldingComponent } from './holding/holding.component';
     BequestsComponent,
     PersonComponent,
     PeopleComponent,
-    HoldingComponent
+    HoldingComponent,
+    HoldingEditorComponent
   ],
   imports: [
     BrowserModule,
