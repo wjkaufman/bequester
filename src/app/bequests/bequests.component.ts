@@ -14,6 +14,7 @@ export class BequestsComponent implements OnInit {
   selectedBequest: Bequest;
   newBequest: Bequest;
   creating = false;
+  deleting = false;
   
   getBequests(): Promise<void> {
     return this.bequestService.getBequests()
@@ -56,10 +57,15 @@ export class BequestsComponent implements OnInit {
   }
   
   onDelete(bequest: Bequest): void {
-    // TODO fill this in
-    // I want to soft-delete everything (hard-deleting is scary)
-    // so need to update tables in db to add column
-    // then flesh out that functionality
+    bequest.isDeleted = 1;
+    this.bequestService.updateBequest(bequest)
+      .then(res => {
+        this.deleting = false;
+        this.getBequests();
+      })
+      .catch(err => {
+        console.error(err);
+      })
   }
 
   onSearch(query: string) {
