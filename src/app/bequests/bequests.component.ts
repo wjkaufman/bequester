@@ -14,6 +14,7 @@ export class BequestsComponent implements OnInit {
   selectedBequest: Bequest;
   newBequest: Bequest;
   creating = false;
+  deleting = false;
   
   getBequests(): Promise<void> {
     return this.bequestService.getBequests()
@@ -30,7 +31,9 @@ export class BequestsComponent implements OnInit {
     if (this.creating) {
       this.newBequest = new Bequest({bequestID: 0, name: 'New bequest',
                                      desc: 'New bequest description',
-                                     dateCreated: new Date()});
+                                     dateCreated: (new Date())
+                                                    .toISOString()
+                                                    .substring(0,10)});
     }
   }
   
@@ -50,6 +53,32 @@ export class BequestsComponent implements OnInit {
       this.selectedBequest = null;
     } else {
       this.selectedBequest = bequest;
+    }
+  }
+  
+  onDelete(bequest: Bequest): void {
+    bequest.isDeleted = 1;
+    this.bequestService.updateBequest(bequest)
+      .then(res => {
+        this.deleting = false;
+        this.getBequests();
+      })
+      .catch(err => {
+        console.error(err);
+      })
+  }
+
+  onSearch(query: string) {
+    if (query == '') {
+      this.getBequests();
+    } else {
+      this.bequestService.getBequestsByString(query)
+        .then(res => {
+          this.bequests = res;
+        })
+        .catch(err => {
+          console.error(err);
+        });
     }
   }
 

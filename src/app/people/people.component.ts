@@ -15,6 +15,7 @@ export class PeopleComponent implements OnInit {
   selectedPerson: Person;
   creating = false;
   newPerson: Person;
+  deleting = false;
   
   getPeople(): Promise<void> {
     return this.personService.getPeople()
@@ -51,6 +52,18 @@ export class PeopleComponent implements OnInit {
     } else {
       this.selectedPerson = person;
     }
+  }
+  
+  onDelete(person: Person) {
+    person.isDeleted = 1;
+    this.personService.updatePerson(person)
+      .then(res => {
+        this.deleting = false;
+        this.getPeople();
+      })
+      .catch(err => {
+        console.error(err);
+      })
   }
   
   onSearch(searchQuery: string) {

@@ -74,7 +74,9 @@ export class PersonComponent implements OnChanges {
     if (this.creatingHolding) {
       this.newHolding = new Holding({holdingID: 0, personID: this.person.personID,
                                      bequestID: 0,
-                                     dateStarted: new Date(), comment: ''});
+                                     dateStarted: (new Date())
+                                                    .toISOString()
+                                                    .substring(0,10), comment: ''});
       this.getPeopleAndBequests();
     }
   }
