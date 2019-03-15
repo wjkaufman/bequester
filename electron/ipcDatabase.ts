@@ -80,10 +80,11 @@ export function ipcDatabase(ipcMain, win, db) {
   
   ipcMain.on('updatePerson', (event, arg) => {
     db.run(`UPDATE people SET
-              firstname = ?, lastname = ?, position = ?, gradYear = ?
+              firstname = ?, lastname = ?, position = ?, gradYear = ?,
+              isDeleted = ?
               WHERE personID = ?`,
-            arg.firstname, arg.lastname, arg.position, arg.gradYear, arg.personID,
-          (err, res) => {
+            arg.firstname, arg.lastname, arg.position, arg.gradYear, arg.isDeleted,
+            arg.personID, (err, res) => {
             win.webContents.send('updatePersonResponse', res);
           });
   });

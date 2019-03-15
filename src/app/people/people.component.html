@@ -12,7 +12,18 @@
       class="list-group-item list-group-item-action"
       [class.active]="person==selectedPerson"
       (click)="onSelect(person)">
-        <p>{{person.firstname}} {{person.lastname}} ({{person.gradYear}})</p>
+        <div class="d-flex justify-content-between">
+          <div>{{person.firstname}} {{person.lastname}} ({{person.gradYear}})</div>
+          <div>
+            <span *ngIf="!(deleting && person == selectedPerson)"
+              (click)="deleting=true">&#10005;</span>
+            <span *ngIf="deleting && person == selectedPerson">
+              <span (click)="onDelete(person)">&#10006;</span>
+              <span (click)="deleting=false">&#9664;</span>
+            </span>
+          </div>
+        </div>
+        
       </a>
     </div>
     
