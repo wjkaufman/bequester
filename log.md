@@ -1,5 +1,11 @@
 # Log
 
+### 2019-03-15
+
+It's the Ides of March. It's Sean Ward's birthday. It's time to work on Bequester!
+
+
+
 ### 2019-03-14
 
 Quick little add on the plane: bequest searchbar now works!

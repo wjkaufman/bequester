@@ -2,7 +2,6 @@ import { Component, Input, OnChanges, SimpleChange } from '@angular/core';
 import { Bequest } from '../bequest';
 import { Person } from '../person';
 import { Holding } from '../holding';
-import { BequestService } from '../bequest.service';
 import { PersonService } from '../person.service';
 import { HoldingService } from '../holding.service';
 
@@ -23,23 +22,6 @@ export class PersonComponent implements OnChanges {
   people: Person[];
   bequests: Bequest[];
   
-  getPeopleAndBequests(): void {
-    this.personService.getPeople()
-      .then((res) => {
-        this.people = res;
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-    this.bequestService.getBequests()
-      .then((res) => {
-        this.bequests = res;
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-  }
-  
   // get holdings for person
   getHoldings(): void {
     this.holdingService.getPersonHoldings(this.person.personID)
@@ -58,7 +40,7 @@ export class PersonComponent implements OnChanges {
     }
   }
   
-  onSubmitEdit(): void {
+  onSubmit(): void {
     this.personService.updatePerson(this.editedPerson)
       .then((res) => {
         this.person.set(this.editedPerson);
@@ -69,34 +51,13 @@ export class PersonComponent implements OnChanges {
       })
   }
   
-  onCreateHolding(): void {
-    this.creatingHolding = !this.creatingHolding;
-    if (this.creatingHolding) {
-      this.newHolding = new Holding({holdingID: 0, personID: this.person.personID,
-                                     bequestID: 0,
-                                     dateStarted: (new Date())
-                                                    .toISOString()
-                                                    .substring(0,10), comment: ''});
-      this.getPeopleAndBequests();
-    }
-  }
-  
-  onSubmitCreateHolding(): void {
-    this.holdingService.createHolding(this.newHolding)
-      .then((res) => {
-        this.creatingHolding = false;
-        this.getHoldings();
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-  }
-
-  constructor(private bequestService: BequestService,
-              private personService: PersonService,
+  constructor(private personService: PersonService,
               private holdingService: HoldingService) { }
 
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
+    console.log('changing stuff apparently');
+    this.creatingHolding = false;
+    this.editing = false;
     this.getHoldings()
   }
 

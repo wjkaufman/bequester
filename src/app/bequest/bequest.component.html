@@ -7,22 +7,6 @@
     <b>Description:</b> {{bequest.desc}}
   </p>
   
-  <!-- show bequest holdings -->
-  <div *ngIf="holdings">
-    <h4>Holdings</h4>
-    <div class="holdings list-group">
-      <a *ngFor="let holding of holdings" class="list-group-item">
-        <app-holding [holding]="holding" [viewType]="'bequest'"
-        (updated)="getHoldings()"></app-holding>
-      </a>
-    </div>
-  </div>
-  <a [routerLink]="" (click)="onCreateHolding()"><span>&#43;</span> Add holding</a>
-  <!-- also will need to work here I think -->
-  <app-holding-editor></app-holding-editor>
-  
-  <br><br>
-  
   <!-- editing bequest -->
   <a [routerLink]="" (click)="onEdit()">Edit</a>
   <div class="bequestEditor" *ngIf="editing">
@@ -44,7 +28,7 @@
       </div>
       
       <label for="desc">Description
-        <textarea class="form-control" name="desc" rows="8" cols="80"
+        <textarea class="form-control" name="desc" rows="8" cols="100"
         [(ngModel)]="editedBequest.desc">
         </textarea>
       </label>
@@ -68,4 +52,19 @@
     </form>
   </div>
   
+  <!-- show bequest holdings -->
+  <div *ngIf="holdings">
+    <h4>Holdings</h4>
+    <div class="holdings list-group">
+      <a *ngFor="let holding of holdings" class="list-group-item">
+        <app-holding [holding]="holding" [viewType]="'bequest'"
+        (updated)="getHoldings()"></app-holding>
+      </a>
+    </div>
+  </div>
+  <!-- also will need to work here I think -->
+  <app-holding-editor [holding]="newHolding" [(creating)]="creatingHolding"
+    [people]="people" [bequests]="bequests" [bequestID]="bequest.bequestID"
+    (created)="getHoldings()">
+  </app-holding-editor>
 </div>

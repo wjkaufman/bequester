@@ -1,11 +1,12 @@
+<a [routerLink]="" (click)="onCreate()"><span>&#43;</span> Add holding</a>
 <!-- new holding editor -->
-<div class="holdingEditor" *ngIf="creatingHolding">
+<div class="holdingEditor" *ngIf="creating">
   <h4>Creating new holding</h4>
-  <form class="" (ngSubmit)="onSubmitCreateHolding()" #holdingForm="ngForm">
+  <form class="" (ngSubmit)="onSubmit()" #holdingForm="ngForm">
     <div *ngIf="people">
       <label for="person">Person
         <select class="form-control" name="person"
-        required [(ngModel)]="newHolding.personID" #p="ngModel">
+        required [(ngModel)]="holding.personID" #p="ngModel">
           <option *ngFor="let p of people" [value]="p.personID">
             {{p.firstname}} {{p.lastname}} ({{p.gradYear}})
           </option>
@@ -22,9 +23,9 @@
     <div *ngIf="bequests">
       <label for="bequest">Bequest
         <select class="form-control" name="bequest"
-        required [(ngModel)]="newHolding.bequestID" #bequest="ngModel">
+        required [(ngModel)]="holding.bequestID" #bequest="ngModel">
           <option *ngFor="let b of bequests" [value]="b.bequestID">
-            {{b.name}}, created in {{b.dateCreated}}
+            {{b.name}} (created in {{b.dateCreated}})
           </option>
         </select>
       </label>
@@ -39,7 +40,7 @@
     <label for="dateStarted">Date holding started
       <input type="date" name="dateStarted" class="form-control"
       required
-      [(ngModel)]="newHolding.dateStarted" #dateStarted="ngModel">
+      [(ngModel)]="holding.dateStarted" #dateStarted="ngModel">
     </label>
     <div *ngIf="(dateStarted.invalid) && (dateStarted.dirty || dateStarted.touched)"
         class="alert alert-danger">
@@ -49,11 +50,11 @@
     </div>
     
     <label for="comment">Comment
-      <input type="text" name="comment" class="form-control"
-      [(ngModel)]="newHolding.comment" #comment="ngModel"
-      placeholder="Comment (e.g. ''Because he's slow.'')">
+      <textarea name="comment" class="form-control" rows="4" cols="80"
+      [(ngModel)]="holding.comment" #comment="ngModel"
+      placeholder="Comment (e.g. ''Because he's slow.'')"></textarea>
     </label>
     
     <button type="submit" class="btn btn-success">Submit</button>
   </form>
-</div> <!-- end new holding editor -->
+</div>

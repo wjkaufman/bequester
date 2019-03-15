@@ -23,23 +23,6 @@ export class BequestComponent implements OnChanges {
   people: Person[];
   bequests: Bequest[];
   
-  getPeopleAndBequests(): void {
-    this.personService.getPeople()
-      .then((res) => {
-        this.people = res;
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-    this.bequestService.getBequests()
-      .then((res) => {
-        this.bequests = res;
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-  }
-  
   getHoldings(): void {
     this.holdingService.getBequestHoldings(this.bequest.bequestID)
       .then((res) => {
@@ -57,7 +40,7 @@ export class BequestComponent implements OnChanges {
     }
   }
   
-  onSubmitEdit(): void {
+  onSubmit(): void {
     this.bequestService.updateBequest(this.editedBequest)
       .then((res) => {
         this.bequest.set(this.editedBequest);
@@ -68,35 +51,12 @@ export class BequestComponent implements OnChanges {
       })
   }
   
-  onCreateHolding(): void {
-    this.creatingHolding = !this.creatingHolding;
-    if (this.creatingHolding) {
-      this.newHolding = new Holding({holdingID: 0, personID: 0,
-                                     bequestID: this.bequest.bequestID,
-                                     dateStarted: (new Date())
-                                                    .toISOString()
-                                                    .substring(0,10), comment: ''});
-      this.getPeopleAndBequests();
-    }
-  }
-  
-  onSubmitCreateHolding(): void {
-    this.holdingService.createHolding(this.newHolding)
-      .then((res) => {
-        this.creatingHolding = false;
-        this.getHoldings();
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-  }
-  
   constructor(private bequestService: BequestService,
-              private personService: PersonService,
               private holdingService: HoldingService) { }
   
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
-    this.getHoldings();
+    this.creatingHolding = false;
     this.editing = false;
+    this.getHoldings();
   }
 }

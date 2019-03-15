@@ -5,21 +5,6 @@
   </h4>
   <p><b>Position:</b> {{person.position}}</p>
   
-  <div *ngIf="holdings">
-    <h4>Holdings</h4>
-    <div class="list-group">
-      <a *ngFor="let holding of holdings" class="list-group-item">
-        <app-holding [holding]="holding" [viewType]="'person'"
-        (updated)="getHoldings()"></app-holding>
-      </a>
-    </div>
-  </div>
-  <a [routerLink]="" (click)="onCreateHolding()"><span>&#43;</span> Add holding</a>
-  <!-- almost certainly will need to fix this -->
-  <app-holding-editor></app-holding-editor>
-  
-  <br><br>
-  
   <!-- person editor -->
   <a [routerLink]="" (click)="onEdit()">Edit</a>
   <div class="personEditor" *ngIf="editing">
@@ -65,4 +50,18 @@
     </form>
   </div>
   
+  <div *ngIf="holdings">
+    <h4>Holdings</h4>
+    <div class="list-group">
+      <a *ngFor="let holding of holdings" class="list-group-item">
+        <app-holding [holding]="holding" [viewType]="'person'"
+        (updated)="getHoldings()"></app-holding>
+      </a>
+    </div>
+  </div>
+  <!-- todo make it so clicking away from a beqeust/person disables holding edit -->
+  <app-holding-editor [holding]="newHolding" [(creating)]="creatingHolding"
+    [people]="people" [bequests]="bequests" [personID]="person.personID"
+    (created)="getHoldings()">
+  </app-holding-editor>
 </div>
