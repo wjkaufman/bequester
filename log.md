@@ -4,7 +4,11 @@
 
 It's the Ides of March. It's Sean Ward's birthday. It's time to work on Bequester!
 
-
+I'm gonna stop for now. When I come back:
+- Make holding list component work (take functionality out of person/bequest)
+- Also would be nice to rename "holding-editor" to "holding-creator" (+camelCase)
+- Add delete functionality for holding
+- Start putting in data
 
 ### 2019-03-14
 

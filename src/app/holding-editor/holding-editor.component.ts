@@ -13,14 +13,14 @@ import { PersonService } from '../person.service';
 })
 export class HoldingEditorComponent implements OnInit {
   
-  @Input() holding: Holding;
-  @Input() bequests: Bequest[];
-  @Input() people: Person[];
+  holding: Holding;
+  bequests: Bequest[];
+  people: Person[];
   @Input() personID: number = 0;
   @Input() bequestID: number = 0;
-  @Output() created = new EventEmitter();
   @Input() creating = false;
   @Output() creatingChange = new EventEmitter();
+  @Output() created = new EventEmitter();
   
   getPeopleAndBequests(): void {
     this.personService.getPeople()

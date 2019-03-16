@@ -1,7 +1,9 @@
-import { Component, Input, OnChanges, SimpleChange } from '@angular/core';
+import { Component, Input, OnChanges,
+  SimpleChange, ViewChild } from '@angular/core';
 import { Person } from '../person';
 import { Bequest } from '../bequest';
 import { Holding } from '../holding';
+import { HoldingListComponent } from '../holding-list/holding-list.component';
 import { BequestService } from '../bequest.service';
 import { PersonService } from '../person.service';
 import { HoldingService } from '../holding.service';
@@ -14,24 +16,9 @@ import { HoldingService } from '../holding.service';
 export class BequestComponent implements OnChanges {
   
   @Input() bequest: Bequest;
+  @ViewChild(HoldingListComponent) holdingList;
   editing = false;
   editedBequest: Bequest;
-  holdings: Holding[];
-  creatingHolding = false;
-  newHolding: Holding;
-  
-  people: Person[];
-  bequests: Bequest[];
-  
-  getHoldings(): void {
-    this.holdingService.getBequestHoldings(this.bequest.bequestID)
-      .then((res) => {
-        this.holdings = res;
-      })
-      .catch((err) => {
-        console.error(err)
-      })
-  }
   
   onEdit(): void {
     this.editing = !this.editing;
@@ -55,8 +42,9 @@ export class BequestComponent implements OnChanges {
               private holdingService: HoldingService) { }
   
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
-    this.creatingHolding = false;
+    if (this.holdingList) {
+      this.holdingList.creatingHolding = false;
+    }
     this.editing = false;
-    this.getHoldings();
   }
 }

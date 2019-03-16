@@ -1,7 +1,9 @@
-import { Component, Input, OnChanges, SimpleChange } from '@angular/core';
+import { Component, Input, OnChanges,
+  SimpleChange, ViewChild } from '@angular/core';
 import { Bequest } from '../bequest';
 import { Person } from '../person';
 import { Holding } from '../holding';
+import { HoldingListComponent } from '../holding-list/holding-list.component';
 import { PersonService } from '../person.service';
 import { HoldingService } from '../holding.service';
 
@@ -13,25 +15,9 @@ import { HoldingService } from '../holding.service';
 export class PersonComponent implements OnChanges {
   
   @Input() person: Person;
-  holdings: Holding[];
+  @ViewChild(HoldingListComponent) holdingList;
   editedPerson: Person;
   editing = false;
-  creatingHolding = false;
-  newHolding: Holding;
-  
-  people: Person[];
-  bequests: Bequest[];
-  
-  // get holdings for person
-  getHoldings(): void {
-    this.holdingService.getPersonHoldings(this.person.personID)
-      .then((res) => {
-        this.holdings = res;
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-  }
   
   onEdit(): void {
     this.editing = !this.editing;
@@ -55,10 +41,12 @@ export class PersonComponent implements OnChanges {
               private holdingService: HoldingService) { }
 
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
-    console.log('changing stuff apparently');
-    this.creatingHolding = false;
+    // TODO fix this, figure out how to make the new holding creator
+    // go away when you click away from the current bequest
+    if (this.holdingList) {
+      this.holdingList.creatingHolding = false;
+    }
     this.editing = false;
-    this.getHoldings()
   }
 
 }

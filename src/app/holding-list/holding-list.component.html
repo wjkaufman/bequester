@@ -1,3 +1,13 @@
-<p>
-  holding-list works!
-</p>
+<div *ngIf="holdings">
+  <h4>Holdings</h4>
+  <div class="list-group">
+    <a *ngFor="let holding of holdings" class="list-group-item">
+      <app-holding [holding]="holding" [viewType]="getViewType()"
+      (updated)="getHoldings()"></app-holding>
+    </a>
+  </div>
+</div>
+
+<app-holding-editor [(creating)]="creatingHolding" [personID]="personID"
+  [bequestID]="bequestID" (created)="getHoldings()">
+</app-holding-editor>
