@@ -23,7 +23,7 @@ db.serialize(function() {
   db.run(`CREATE TABLE if not exists holdings (
       holdingID integer primary key,
       personID integer not null, bequestID integer not null,
-      dateStarted text not null, comment text
+      dateStarted text not null, comment text, isDeleted integer
     )`);
   
   console.log('Created tables (if it doesn\'t already exist)');
@@ -78,7 +78,7 @@ db.serialize(function() {
       (SELECT MAX(holdingID)+1 FROM holdings),
       (SELECT personID FROM people ORDER BY RANDOM() LIMIT 1),
       (SELECT bequestID FROM bequests ORDER BY RANDOM() LIMIT 1),
-      '2012-05-0${i}', 'what a cool person, ${i}/10'
+      '2012-05-0${i}', 'what a cool person, ${i}/10', 0
     )`)
   }
   

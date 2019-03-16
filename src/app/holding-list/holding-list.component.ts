@@ -17,9 +17,11 @@ export class HoldingListComponent implements OnChanges {
   @Input() personID;
   @Input() bequestID;
   holdings: Holding[];
+  selectedHolding: Holding;
   people: Person[];
   bequests: Bequest[];
   
+  deleting = false;
   creatingHolding = false;
   
   getHoldings(): void {
@@ -53,6 +55,18 @@ export class HoldingListComponent implements OnChanges {
     } else {
       return('')
     }
+  }
+  
+  onDelete(h: Holding): void {
+    h.isDeleted = true;
+    this.holdingService.updateHolding(h)
+      .then(res => {
+        this.deleting = false;
+        this.getHoldings();
+      })
+      .catch(err => {
+        console.error(err);
+      });
   }
   
   constructor(private bequestService: BequestService,

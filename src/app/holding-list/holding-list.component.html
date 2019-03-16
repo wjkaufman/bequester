@@ -2,8 +2,20 @@
   <h4>Holdings</h4>
   <div class="list-group">
     <a *ngFor="let holding of holdings" class="list-group-item">
-      <app-holding [holding]="holding" [viewType]="getViewType()"
-      (updated)="getHoldings()"></app-holding>
+      <div class="d-flex justify-content-between">
+        <div>
+          <app-holding [holding]="holding" [viewType]="getViewType()"
+          (updated)="getHoldings()"></app-holding>
+        </div>
+        <div>
+          <span *ngIf="!(deleting && holding == selectedHolding)"
+            (click)="deleting=true; selectedHolding=holding">&#10005;</span>
+          <span *ngIf="deleting && holding == selectedHolding">
+            <span (click)="onDelete(holding)">&#10006;</span>
+            <span (click)="deleting=false">&#9664;</span>
+          </span>
+        </div>
+      </div>
     </a>
   </div>
 </div>

@@ -4,6 +4,7 @@ export class Holding {
   bequestID: number;
   dateStarted: Date;
   comment: string;
+  isDeleted: boolean;
   // other information not stored in holdings table
   firstname?: string;
   lastname?: string;
