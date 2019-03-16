@@ -49,15 +49,11 @@ export class BequestsComponent implements OnInit {
   }
   
   onSelect(bequest: Bequest) {
-    if (this.selectedBequest == bequest) {
-      this.selectedBequest = null;
-    } else {
-      this.selectedBequest = bequest;
-    }
+    this.selectedBequest = bequest;
   }
   
   onDelete(bequest: Bequest): void {
-    bequest.isDeleted = 1;
+    bequest.isDeleted = true;
     this.bequestService.updateBequest(bequest)
       .then(res => {
         this.deleting = false;

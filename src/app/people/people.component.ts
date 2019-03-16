@@ -47,15 +47,11 @@ export class PeopleComponent implements OnInit {
   }
   
   onSelect(person: Person) {
-    if (this.selectedPerson == person) {
-      this.selectedPerson = null;
-    } else {
-      this.selectedPerson = person;
-    }
+    this.selectedPerson = person;
   }
   
   onDelete(person: Person) {
-    person.isDeleted = 1;
+    person.isDeleted = true;
     this.personService.updatePerson(person)
       .then(res => {
         this.deleting = false;
