@@ -1,5 +1,11 @@
 # Log
 
+### 2019-03-16
+
+Now I'm getting into the actual population of the database with _real_ data. I'll rename the mock database to `keggy` and the actual database to `lonepine`.
+
+Using [this tutorial](http://www.sqlitetutorial.net/sqlite-import-csv/) to import data into the tables.
+
 ### 2019-03-15
 
 It's the Ides of March. It's Sean Ward's birthday. It's time to work on Bequester!

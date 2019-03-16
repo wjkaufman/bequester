@@ -16,9 +16,10 @@ export function ipcDatabase(ipcMain, win, db) {
   
   ipcMain.on('getBequestsByString', (event, arg) => {
     db.all(`SELECT * FROM bequests
-            WHERE isDeleted == 0 AND (name || ' ' || desc || ' ' || dateCreated)
-              LIKE '%' || ?1 || '%'
-            ORDER BY dateCreated`, arg, (err, bequests) => {
+            WHERE isDeleted == 0 AND(name LIKE '%' || ?1 || '%' OR
+              desc LIKE '%' || ?1 || '%' OR
+              dateCreated LIKE '%' || ?1 || '%')
+            ORDER BY dateCreated, name`, arg, (err, bequests) => {
       if (err) {
         console.error(err);
       }
