@@ -4,7 +4,7 @@ export class Person {
   lastname: string;
   position: string;
   gradYear: number;
-  isDeleted: number;
+  isDeleted: boolean;
   
   constructor(p: any) {
     this.set(p);

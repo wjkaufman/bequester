@@ -16,9 +16,10 @@ export function ipcDatabase(ipcMain, win, db) {
   
   ipcMain.on('getBequestsByString', (event, arg) => {
     db.all(`SELECT * FROM bequests
-            WHERE isDeleted == 0 AND (name || ' ' || desc || ' ' || dateCreated)
-              LIKE '%' || ?1 || '%'
-            ORDER BY dateCreated`, arg, (err, bequests) => {
+            WHERE isDeleted == 0 AND(name LIKE '%' || ?1 || '%' OR
+              desc LIKE '%' || ?1 || '%' OR
+              dateCreated LIKE '%' || ?1 || '%')
+            ORDER BY dateCreated, name`, arg, (err, bequests) => {
       if (err) {
         console.error(err);
       }
@@ -106,7 +107,7 @@ export function ipcDatabase(ipcMain, win, db) {
     db.all(`SELECT * FROM holdings a
               JOIN bequests b on a.bequestID = b.bequestID
               JOIN people c on a.personID = c.personID
-              where a.bequestID = ?
+              where a.bequestID = ? AND a.isDeleted = 0
               order by a.dateStarted`, arg,
             (err, holdings) => {
               win.webContents.send('getBequestHoldingsResponse', holdings)
@@ -117,7 +118,7 @@ export function ipcDatabase(ipcMain, win, db) {
     db.all(`SELECT * FROM holdings a
               JOIN bequests b on a.bequestID = b.bequestID
               JOIN people c on a.personID = c.personID
-              where c.personID = ?
+              where c.personID = ? AND a.isDeleted = 0
               order by a.dateStarted`, arg,
             (err, holdings) => {
               win.webContents.send('getPersonHoldingsResponse', holdings)
@@ -126,9 +127,10 @@ export function ipcDatabase(ipcMain, win, db) {
   
   ipcMain.on('updateHolding', (event, arg) => {
     db.run(`UPDATE holdings SET
-              personID = ?, bequestID = ?, dateStarted = ?, comment = ?
+              personID = ?, bequestID = ?, dateStarted = ?, comment = ?,
+              isDeleted = ?
               WHERE holdingID = ?`, arg.personID, arg.bequestID, arg.dateStarted,
-            arg.comment, arg.holdingID, (err, res) => {
+            arg.comment, arg.isDeleted, arg.holdingID, (err, res) => {
               win.webContents.send('updateHoldingResponse', res);
             });
   });

@@ -1,5 +1,21 @@
 # Log
 
+### 2019-03-16
+
+Now I'm getting into the actual population of the database with _real_ data. I'll rename the mock database to `keggy` and the actual database to `lonepine`.
+
+Using [this tutorial](http://www.sqlitetutorial.net/sqlite-import-csv/) to import data into the tables.
+
+### 2019-03-15
+
+It's the Ides of March. It's Sean Ward's birthday. It's time to work on Bequester!
+
+I'm gonna stop for now. When I come back:
+- Make holding list component work (take functionality out of person/bequest)
+- Also would be nice to rename "holding-editor" to "holding-creator" (+camelCase)
+- Add delete functionality for holding
+- Start putting in data
+
 ### 2019-03-14
 
 Quick little add on the plane: bequest searchbar now works!
@@ -9,6 +25,10 @@ Apparently to add colums to tables:
 Then did this to make everything not deleted:
 `UPDATE bequests SET isDeleted = 0;`
 Fair enough!
+
+Finished up making the searchbar and soft-delete functionality. Merged and cleaned up the issues on GitHub.
+
+Next steps: consolidate holdings editor into its own component (maybe even make separate components for all object editors?). But I'm tired so I'll do it later.
 
 ### 2019-03-08
 

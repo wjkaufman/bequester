@@ -3,7 +3,7 @@ export class Bequest {
   name: string;
   desc: string;
   dateCreated: Date;
-  isDeleted: number;
+  isDeleted: boolean;
   
   constructor(b: any) {
     this.set(b);
