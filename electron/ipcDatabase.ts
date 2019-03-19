@@ -9,7 +9,7 @@ export function ipcDatabase(ipcMain, win, db) {
   
   ipcMain.on('getBequests', (event, arg) => {
     db.all(`SELECT * FROM bequests WHERE isDeleted == 0
-            ORDER BY dateCreated`, (err, bequests) => {
+            ORDER BY name, dateCreated`, (err, bequests) => {
         win.webContents.send('getBequestsResponse', bequests)
     });
   });
@@ -19,7 +19,7 @@ export function ipcDatabase(ipcMain, win, db) {
             WHERE isDeleted == 0 AND(name LIKE '%' || ?1 || '%' OR
               desc LIKE '%' || ?1 || '%' OR
               dateCreated LIKE '%' || ?1 || '%')
-            ORDER BY dateCreated, name`, arg, (err, bequests) => {
+            ORDER BY name, dateCreated`, arg, (err, bequests) => {
       if (err) {
         console.error(err);
       }
@@ -38,9 +38,9 @@ export function ipcDatabase(ipcMain, win, db) {
   });
   
   ipcMain.on('createBequest', (event, arg) => {
-    db.run(`INSERT INTO bequests (bequestID, name, desc, dateCreated)
-              VALUES ((SELECT max(bequestID) + 1 from bequests), ?, ?, ?)`,
-            arg.name, arg.desc, arg.dateCreated,
+    db.run(`INSERT INTO bequests (bequestID, name, desc, dateCreated, isDeleted)
+              VALUES ((SELECT max(bequestID) + 1 from bequests), ?, ?, ?, ?)`,
+            arg.name, arg.desc, arg.dateCreated, arg.isDeleted,
             (err, res) => {
               win.webContents.send('createBequestResponse', res);
             });
@@ -59,7 +59,7 @@ export function ipcDatabase(ipcMain, win, db) {
   
   ipcMain.on('getPeople', (event, arg) => {
     db.all(`select * from people WHERE isDeleted == 0
-              ORDER BY gradYear, lastname`, (err, people) => {
+              ORDER BY gradYear, lastname, firstname`, (err, people) => {
       win.webContents.send('getPeopleResponse', people)
     })
   })
@@ -71,7 +71,7 @@ export function ipcDatabase(ipcMain, win, db) {
              lastname LIKE '%' || ?1 || '%' OR
              position LIKE '%' || ?1 || '%' OR
              CAST(gradYear AS TEXT) LIKE '%' || ?1 || '%')
-            ORDER BY gradYear, lastname`, arg, (err, people) => {
+            ORDER BY gradYear, lastname, firstname`, arg, (err, people) => {
       if (err) {
         console.error(err);
       }
@@ -91,10 +91,11 @@ export function ipcDatabase(ipcMain, win, db) {
   });
   
   ipcMain.on('createPerson', (event, arg) => {
-    db.run(`INSERT INTO people (personID, firstname, lastname, position, gradYear)
-              VALUES ((SELECT max(personID) + 1 from people), ?, ?, ?, ?)`,
-            arg.firstname, arg.lastname, arg.position, arg.gradYear,
-            (err, res) => {
+    db.run(`INSERT INTO people (personID, firstname, lastname, position,
+                gradYear, isDeleted)
+              VALUES ((SELECT max(personID) + 1 from people), ?, ?, ?, ?, ?)`,
+            arg.firstname, arg.lastname, arg.position,
+            arg.gradYear, arg.isDeleted, (err, res) => {
               win.webContents.send('createPersonResponse', res);
             });
   });
@@ -108,7 +109,7 @@ export function ipcDatabase(ipcMain, win, db) {
               JOIN bequests b on a.bequestID = b.bequestID
               JOIN people c on a.personID = c.personID
               where a.bequestID = ? AND a.isDeleted = 0
-              order by a.dateStarted`, arg,
+              order by a.dateStarted, c.lastname`, arg,
             (err, holdings) => {
               win.webContents.send('getBequestHoldingsResponse', holdings)
             });
@@ -119,7 +120,7 @@ export function ipcDatabase(ipcMain, win, db) {
               JOIN bequests b on a.bequestID = b.bequestID
               JOIN people c on a.personID = c.personID
               where c.personID = ? AND a.isDeleted = 0
-              order by a.dateStarted`, arg,
+              order by a.dateStarted, b.name`, arg,
             (err, holdings) => {
               win.webContents.send('getPersonHoldingsResponse', holdings)
             });
@@ -137,9 +138,9 @@ export function ipcDatabase(ipcMain, win, db) {
   
   ipcMain.on('createHolding', (event, arg) => {
     db.run(`INSERT INTO holdings (holdingID, personID, bequestID,
-              dateStarted, comment) VALUES
-              ((SELECT max(holdingID) + 1 from holdings), ?, ?, ?, ?)`,
-            arg.personID, arg.bequestID, arg.dateStarted, arg.comment,
+              dateStarted, comment, isDeleted) VALUES
+              ((SELECT max(holdingID) + 1 from holdings), ?, ?, ?, ?, ?)`,
+            arg.personID, arg.bequestID, arg.dateStarted, arg.comment, arg.isDeleted,
             (err, res) => {
               win.webContents.send('createHoldingResponse', res);
             });

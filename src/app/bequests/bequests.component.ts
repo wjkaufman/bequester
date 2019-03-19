@@ -31,6 +31,7 @@ export class BequestsComponent implements OnInit {
     if (this.creating) {
       this.newBequest = new Bequest({bequestID: 0, name: 'New bequest',
                                      desc: 'New bequest description',
+                                     isDeleted: false,
                                      dateCreated: (new Date())
                                                     .toISOString()
                                                     .substring(0,10)});

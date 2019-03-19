@@ -16,5 +16,6 @@ export class Person {
     this.lastname = p.lastname;
     this.position = p.position;
     this.gradYear = p.gradYear;
+    this.isDeleted = p.isDeleted;
   }
 }

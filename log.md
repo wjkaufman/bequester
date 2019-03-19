@@ -1,10 +1,16 @@
 # Log
 
+### 2019-03-18
+
+Still going through bequests, now at "Black Racing Hat". The app works well!
+
 ### 2019-03-16
 
 Now I'm getting into the actual population of the database with _real_ data. I'll rename the mock database to `keggy` and the actual database to `lonepine`.
 
 Using [this tutorial](http://www.sqlitetutorial.net/sqlite-import-csv/) to import data into the tables.
+
+Ok, I'm going through bequests rn (in alphabetical order), stopping at "2013 Dartmouth racing Uni". Adding holdings to bequests, updating people's info. Easy peasy!
 
 ### 2019-03-15
 

@@ -14,5 +14,6 @@ export class Bequest {
     this.name = b.name;
     this.desc = b.desc;
     this.dateCreated = b.dateCreated;
+    this.isDeleted = b.isDeleted;
   }
 }

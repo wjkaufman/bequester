@@ -8,7 +8,7 @@
         <select class="form-control" name="person"
         required [(ngModel)]="holding.personID" #p="ngModel">
           <option *ngFor="let p of people" [value]="p.personID">
-            {{p.firstname}} {{p.lastname}} ({{p.gradYear}})
+            {{p.lastname}}, {{p.firstname}} ({{p.gradYear}})
           </option>
         </select>
       </label>
@@ -52,7 +52,7 @@
     <label for="comment">Comment
       <textarea name="comment" class="form-control" rows="4" cols="80"
       [(ngModel)]="holding.comment" #comment="ngModel"
-      placeholder="Comment (e.g. ''Because he's slow.'')"></textarea>
+      placeholder="Comment (e.g. ''Because he's fast.'')"></textarea>
     </label>
     
     <button type="submit" class="btn btn-success">Submit</button>

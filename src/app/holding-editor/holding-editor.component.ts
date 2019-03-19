@@ -25,7 +25,10 @@ export class HoldingEditorComponent implements OnInit {
   getPeopleAndBequests(): void {
     this.personService.getPeople()
       .then((res) => {
-        this.people = res;
+        // sort by last name, then first name
+        this.people = res.sort((a,b) => {
+          return (a.lastname + a.firstname).localeCompare(b.lastname + b.firstname);
+        });
       })
       .catch((err) => {
         console.error(err);
@@ -47,7 +50,8 @@ export class HoldingEditorComponent implements OnInit {
                                      bequestID: this.bequestID,
                                      dateStarted: (new Date())
                                                     .toISOString()
-                                                    .substring(0,10), comment: ''});
+                                                    .substring(0,10),
+                                    comment: '', isDeleted: 0});
       this.getPeopleAndBequests();
     }
   }

@@ -8,7 +8,8 @@ export class Holding {
   // other information not stored in holdings table
   firstname?: string;
   lastname?: string;
-  name?: string;
+  gradYear?: number;
+  name?: string; // name of bequest
   dateCreated?: string;
   
   constructor(h: any) {
@@ -21,8 +22,11 @@ export class Holding {
     this.bequestID = h.bequestID;
     this.dateStarted = h.dateStarted;
     this.comment = h.comment;
+    this.isDeleted = h.isDeleted;
+    
     this.firstname = h.firstname;
     this.lastname = h.lastname;
+    this.gradYear = h.gradYear;
     this.name = h.name;
     this.dateCreated = h.dateCreated;
   }

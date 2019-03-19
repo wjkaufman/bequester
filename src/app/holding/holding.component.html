@@ -2,13 +2,13 @@
   
   <div *ngIf="viewType=='bequest'">
     <a [routerLink] = "['/people', holding.personID]">
-      {{holding.firstname}} {{holding.lastname}}
-    </a>: received {{holding.dateStarted}}
+      {{holding.firstname}} {{holding.lastname}} ({{holding.gradYear}})</a>:
+      received {{holding.dateStarted}}
   </div>
   <div *ngIf="viewType=='person'">
     <a [routerLink]="['/bequests', holding.bequestID]">
       {{holding.name}}
-    </a> (created {{holding.dateCreated}}) <br>
+    </a> <br>
     <b>Received:</b> {{holding.dateStarted}}
   </div>
   <div *ngIf="holding.comment">
@@ -71,7 +71,7 @@
       <label for="comment">Comment
         <textarea rows="4" cols="80" name="comment" class="form-control"
         [(ngModel)]="editedHolding.comment" #comment="ngModel"
-        placeholder="Comment (e.g. ''Because he's slow.'')">
+        placeholder="Comment (e.g. ''Because he's fast.'')">
         </textarea>
       </label>
       

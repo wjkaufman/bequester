@@ -6,28 +6,8 @@
       <input [(ngModel)]="searchQuery" (keyup.enter)="onSearch(searchQuery)"
       type="text" name="search" placeholder="Search..." class="form-control">
     </div>
-    <div class="people list-group">
-      <a *ngFor="let person of people"
-      [routerLink]=""
-      class="list-group-item list-group-item-action"
-      [class.active]="person==selectedPerson"
-      (click)="onSelect(person)">
-        <div class="d-flex justify-content-between">
-          <div>{{person.firstname}} {{person.lastname}} ({{person.gradYear}})</div>
-          <div>
-            <span *ngIf="!(deleting && person == selectedPerson)"
-              (click)="deleting=true">&#10005;</span>
-            <span *ngIf="deleting && person == selectedPerson">
-              <span (click)="onDelete(person)">&#10006;</span>
-              <span (click)="deleting=false">&#9664;</span>
-            </span>
-          </div>
-        </div>
-      </a>
-    </div>
-    
-    <a [routerLink]="" (click)="onCreate()"><span>&#43;</span> Add person</a>
     <!-- new person editor -->
+    <a [routerLink]="" (click)="onCreate()"><span>&#43;</span> Add person</a>
     <div class="personEditor" *ngIf="creating">
       <h4>Creating new person</h4>
       <form class="" (ngSubmit)="onSubmit()" #personForm="ngForm">
@@ -69,6 +49,25 @@
         <button type="submit" class="btn btn-success">Submit</button>
       </form>
     </div> <!-- end person editor -->
+    <div class="people list-group">
+      <a *ngFor="let person of people"
+      [routerLink]=""
+      class="list-group-item list-group-item-action"
+      [class.active]="selectedPerson && (person.personID == selectedPerson.personID)"
+      (click)="onSelect(person)">
+        <div class="d-flex justify-content-between">
+          <div>{{person.firstname}} {{person.lastname}} ({{person.gradYear}})</div>
+          <div>
+            <span *ngIf="!(deleting && person == selectedPerson)"
+              (click)="deleting=true">&#10005;</span>
+            <span *ngIf="deleting && person == selectedPerson">
+              <span (click)="onDelete(person)">&#10006;</span>
+              <span (click)="deleting=false">&#9664;</span>
+            </span>
+          </div>
+        </div>
+      </a>
+    </div>
   </div>
   
   <!-- person detail view -->

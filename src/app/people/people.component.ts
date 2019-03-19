@@ -30,8 +30,9 @@ export class PeopleComponent implements OnInit {
   onCreate() {
     this.creating = !this.creating;
     if (this.creating) {
-      this.newPerson = new Person({personID: 0, firstname: "Joel", lastname: "Weng",
-                                   position: "Starboard", gradYear: 2017});
+      this.newPerson = new Person({personID: 0, firstname: "", lastname: "",
+                                   position: "", gradYear: 2020,
+                                   isDeleted: false});
     }
   }
   
