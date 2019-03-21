@@ -4,7 +4,7 @@
   <h4>Creating new holding</h4>
   <form class="" (ngSubmit)="onSubmit()" #holdingForm="ngForm">
     <div *ngIf="people">
-      <label for="person">Person
+      <label for="person">Person ({{holding.personID}})
         <select class="form-control" name="person"
         required [(ngModel)]="holding.personID" #p="ngModel">
           <option *ngFor="let p of people" [value]="p.personID">
@@ -21,8 +21,8 @@
     </div>
     
     <div *ngIf="bequests">
-      <label for="bequest">Bequest
-        <select class="form-control" name="bequest"
+      <label for="bequest">Bequest  ({{holding.bequestID}})
+        <select multiple class="form-control" name="bequest"
         required [(ngModel)]="holding.bequestID" #bequest="ngModel">
           <option *ngFor="let b of bequests" [value]="b.bequestID">
             {{b.name}} (created in {{b.dateCreated}})
