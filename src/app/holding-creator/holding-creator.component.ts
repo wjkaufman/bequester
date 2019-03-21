@@ -7,11 +7,11 @@ import { BequestService } from '../bequest.service';
 import { PersonService } from '../person.service';
 
 @Component({
-  selector: 'app-holding-editor',
-  templateUrl: './holding-editor.component.html',
-  styleUrls: ['./holding-editor.component.css']
+  selector: 'app-holding-creator',
+  templateUrl: './holding-creator.component.html',
+  styleUrls: ['./holding-creator.component.css']
 })
-export class HoldingEditorComponent implements OnInit {
+export class HoldingCreatorComponent implements OnInit {
   
   holding: Holding;
   bequests: Bequest[];

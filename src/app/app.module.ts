@@ -10,7 +10,7 @@ import { BequestsComponent } from './bequests/bequests.component';
 import { PersonComponent } from './person/person.component';
 import { PeopleComponent } from './people/people.component';
 import { HoldingComponent } from './holding/holding.component';
-import { HoldingEditorComponent } from './holding-editor/holding-editor.component';
+import { HoldingCreatorComponent } from './holding-creator/holding-creator.component';
 import { HoldingListComponent } from './holding-list/holding-list.component';
 
 @NgModule({
@@ -21,7 +21,7 @@ import { HoldingListComponent } from './holding-list/holding-list.component';
     PersonComponent,
     PeopleComponent,
     HoldingComponent,
-    HoldingEditorComponent,
+    HoldingCreatorComponent,
     HoldingListComponent
   ],
   imports: [
