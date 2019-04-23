@@ -137,12 +137,17 @@ export function ipcDatabase(ipcMain, win, db) {
   });
   
   ipcMain.on('createHolding', (event, arg) => {
-    db.run(`INSERT INTO holdings (holdingID, personID, bequestID,
-              dateStarted, comment, isDeleted) VALUES
-              ((SELECT max(holdingID) + 1 from holdings), ?, ?, ?, ?, ?)`,
-            arg.personID, arg.bequestID, arg.dateStarted, arg.comment, arg.isDeleted,
-            (err, res) => {
-              win.webContents.send('createHoldingResponse', res);
-            });
+    if (arg.bequestID.length == null) {
+      arg.bequestID = [arg.bequestID];
+    }
+    for (let bequestID of arg.bequestID) {
+      db.run(`INSERT INTO holdings (holdingID, personID, bequestID,
+                dateStarted, comment, isDeleted) VALUES
+                ((SELECT max(holdingID) + 1 from holdings), ?, ?, ?, ?, ?)`,
+              arg.personID, bequestID, arg.dateStarted, arg.comment, arg.isDeleted,
+              (err, res) => {
+                win.webContents.send('createHoldingResponse', res);
+              });
+    }
   })
 };

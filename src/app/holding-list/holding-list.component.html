@@ -1,5 +1,5 @@
 <div *ngIf="holdings">
-  <h4>Holdings</h4>
+  <h4>Holdings ({{holdings.length}})</h4>
   <div class="list-group">
     <a *ngFor="let holding of holdings" class="list-group-item">
       <div class="d-flex justify-content-between">
@@ -20,6 +20,6 @@
   </div>
 </div>
 
-<app-holding-editor [(creating)]="creatingHolding" [personID]="personID"
+<app-holding-creator [(creating)]="creatingHolding" [personID]="personID"
   [bequestID]="bequestID" (created)="getHoldings()">
-</app-holding-editor>
+</app-holding-creator>

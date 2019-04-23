@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HoldingEditorComponent } from './holding-editor.component';
+import { HoldingCreatorComponent } from './holding-creator.component';
 
-describe('HoldingEditorComponent', () => {
-  let component: HoldingEditorComponent;
-  let fixture: ComponentFixture<HoldingEditorComponent>;
+describe('HoldingCreatorComponent', () => {
+  let component: HoldingCreatorComponent;
+  let fixture: ComponentFixture<HoldingCreatorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HoldingEditorComponent ]
+      declarations: [ HoldingCreatorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HoldingEditorComponent);
+    fixture = TestBed.createComponent(HoldingCreatorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
