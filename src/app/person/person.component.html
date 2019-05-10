@@ -56,14 +56,15 @@
   
   <br><br><br>
   
-  <a (click)="onGetBequestList()">GET BEQUEST LIST</a>
+  <a (click)="onGetBequestList()">List of {{ person.firstname }}'s bequests</a>
   <div *ngIf="bequestList">
     <ul>
       <li *ngFor="let b of bequestList">
         <b>{{ b.name }}</b>: {{ b.desc }}
-        <div *ngIf="b.holdings">
-          (<p *ngFor="let h of holdings">{{ h.lastname }} ({{ h.gradYear }}), </p>)
-        </div>
+        <span *ngIf="b.holdings">
+          (<span *ngFor="let h of b.holdings">{{ h.lastname }} ({{ h.gradYear }}),
+          </span>)
+        </span>
       </li>
     </ul>
   </div>

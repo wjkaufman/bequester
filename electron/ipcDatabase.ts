@@ -122,7 +122,7 @@ export function ipcDatabase(ipcMain, win, db) {
               where a.bequestID = ? AND a.isDeleted = 0
               order by a.dateStarted, c.lastname`, arg,
             (err, holdings) => {
-              win.webContents.send('getBequestHoldingsResponse', holdings)
+              win.webContents.send('getBequestHoldingsResponse' + arg, holdings)
             });
   });
   

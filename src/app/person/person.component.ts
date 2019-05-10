@@ -48,16 +48,19 @@ export class PersonComponent implements OnChanges {
         console.log(res)
         console.log('now getting lineages for each bequest')
         // now get lineages for each bequest
-        for (var i=0, b; b = this.bequestList[i]; i++) {
+        for (let b of this.bequestList) {
           console.log(b);
           this.holdingService.getBequestHoldings(b.bequestID)
             .then((res) => {
-              // line below isn't working, TODO to fix...
-              console.log(`problem area, i=${i}`);
-              console.log(this.bequestList);
-              this.bequestList[i].holdings = res;
-              console.log('apparently got the holdings for bequest');
-              console.log(res);
+              console.log(`responding for bequest ${res[0].bequestID}`);
+              for (var j=0, b; b = this.bequestList[j]; j++) {
+                if (b.bequestID == res[0].bequestID) {
+                   this.bequestList[j].holdings = res;
+                   console.log(`changed bequestList allegedly (${j})`);
+                   console.log(this.bequestList);
+                   console.log(res);
+                }
+              }
             })
         }
       })
@@ -70,8 +73,8 @@ export class PersonComponent implements OnChanges {
               private holdingService: HoldingService) { }
 
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
-    // TODO fix this, figure out how to make the new holding creator
-    // go away when you click away from the current bequest
+    this.onGetBequestList();
+    
     if (this.holdingList) {
       this.holdingList.creatingHolding = false;
     }
