@@ -100,6 +100,17 @@ export function ipcDatabase(ipcMain, win, db) {
             });
   });
   
+  // get list of bequests that person has held
+  ipcMain.on('getPersonBequests', (event, arg) => {
+    db.all(`select a.bequestID, b.name, b.desc from holdings a
+                JOIN bequests b on a.bequestID = b.bequestID
+              WHERE a.personID = ? and a.isDeleted = 0
+              ORDER BY a.dateStarted, b.name`, arg.personID,
+    (err, bequests) => {
+      win.webContents.send('getPersonBequestsResponse', bequests)
+    })
+  })
+  
   //
   // HOLDINGS
   //

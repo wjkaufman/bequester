@@ -53,6 +53,16 @@ export class PersonService {
     })
   }
   
+  // get all bequests that a person has held
+  async getPersonBequests(p: Person) {
+    return new Promise<Object[]>((resolve, reject) => {
+      this.ipc.once('getPersonBequestsResponse', (event, arg) => {
+        resolve(arg);
+      });
+      this.ipc.send('getPersonBequests', p);
+    });
+  }
+  
   constructor() {
     if ((<any>window).require) {
       try {

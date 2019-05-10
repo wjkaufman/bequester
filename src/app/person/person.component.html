@@ -53,4 +53,18 @@
   </div>
   
   <app-holding-list [personID]="person.personID"></app-holding-list>
+  
+  <br><br><br>
+  
+  <a (click)="onGetBequestList()">GET BEQUEST LIST</a>
+  <div *ngIf="bequestList">
+    <ul>
+      <li *ngFor="let b of bequestList">
+        <b>{{ b.name }}</b>: {{ b.desc }}
+        <div *ngIf="b.holdings">
+          (<p *ngFor="let h of holdings">{{ h.lastname }} ({{ h.gradYear }}), </p>)
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>

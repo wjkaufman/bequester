@@ -18,6 +18,8 @@ export class PersonComponent implements OnChanges {
   @ViewChild(HoldingListComponent) holdingList;
   editedPerson: Person;
   editing = false;
+  // for displaying all bequests and lineages for each bequest
+  bequestList: any[];
   
   onEdit(): void {
     this.editing = !this.editing;
@@ -31,6 +33,33 @@ export class PersonComponent implements OnChanges {
       .then((res) => {
         this.person.set(this.editedPerson);
         this.editing = false;
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+  }
+  
+  onGetBequestList(): void {
+    console.log('getting bequest list...')
+    this.personService.getPersonBequests(this.person)
+      .then((res) => {
+        this.bequestList = res;
+        console.log('finished getting bequest list')
+        console.log(res)
+        console.log('now getting lineages for each bequest')
+        // now get lineages for each bequest
+        for (var i=0, b; b = this.bequestList[i]; i++) {
+          console.log(b);
+          this.holdingService.getBequestHoldings(b.bequestID)
+            .then((res) => {
+              // line below isn't working, TODO to fix...
+              console.log(`problem area, i=${i}`);
+              console.log(this.bequestList);
+              this.bequestList[i].holdings = res;
+              console.log('apparently got the holdings for bequest');
+              console.log(res);
+            })
+        }
       })
       .catch((err) => {
         console.error(err);
