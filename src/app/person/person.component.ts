@@ -40,25 +40,16 @@ export class PersonComponent implements OnChanges {
   }
   
   onGetBequestList(): void {
-    console.log('getting bequest list...')
     this.personService.getPersonBequests(this.person)
       .then((res) => {
         this.bequestList = res;
-        console.log('finished getting bequest list')
-        console.log(res)
-        console.log('now getting lineages for each bequest')
         // now get lineages for each bequest
         for (let b of this.bequestList) {
-          console.log(b);
           this.holdingService.getBequestHoldings(b.bequestID)
             .then((res) => {
-              console.log(`responding for bequest ${res[0].bequestID}`);
               for (var j=0, b; b = this.bequestList[j]; j++) {
                 if (b.bequestID == res[0].bequestID) {
                    this.bequestList[j].holdings = res;
-                   console.log(`changed bequestList allegedly (${j})`);
-                   console.log(this.bequestList);
-                   console.log(res);
                 }
               }
             })
