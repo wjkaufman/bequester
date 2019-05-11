@@ -58,14 +58,16 @@
   
   <a (click)="onGetBequestList()">List of {{ person.firstname }}'s bequests</a>
   <div *ngIf="bequestList">
-    <ul>
+    <ol>
       <li *ngFor="let b of bequestList">
-        <b>{{ b.name }}</b>: {{ b.desc }}
+        <b>{{ b.name }}</b><span *ngIf="b.desc">: {{ b.desc }}</span>
         <span *ngIf="b.holdings">
-          (<span *ngFor="let h of b.holdings">{{ h.lastname }} ({{ h.gradYear }}),
+          (<span *ngFor="let h of b.holdings">{{ h.lastname }}
+            '{{ h.gradYear.toString().substring(2,4) }}<span
+                *ngIf="h != b.holdings[b.holdings.length - 1]">, </span>
           </span>)
         </span>
       </li>
-    </ul>
+    </ol>
   </div>
 </div>
