@@ -59,7 +59,7 @@
   <h5>List of {{ person.firstname }}'s bequests</h5>
   <div *ngIf="bequestList">
     <ol>
-      <li *ngFor="let b of bequestList">
+      <li *ngFor="let b of bequestList" [class.notCurrent]="!b.isCurrent">
         <b>{{ b.name }}</b><span *ngIf="b.desc">: {{ b.desc }}</span>
         <span *ngIf="b.holdings">
           (<span *ngFor="let h of b.holdings">{{ h.lastname }}

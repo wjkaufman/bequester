@@ -11,6 +11,7 @@ export class Holding {
   gradYear?: number;
   name?: string; // name of bequest
   dateCreated?: string;
+  isCurrent: boolean; // whether the holding is the current holding
   
   constructor(h: any) {
     this.set(h);

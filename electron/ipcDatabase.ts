@@ -102,10 +102,13 @@ export function ipcDatabase(ipcMain, win, db) {
   
   // get list of bequests that person has held
   ipcMain.on('getPersonBequests', (event, arg) => {
-    db.all(`select a.bequestID, b.name, b.desc from holdings a
+    db.all(`select a.bequestID, b.name, b.desc, (a.dateStarted ==
+                  (SELECT MAX(dateStarted) FROM holdings
+                  WHERE bequestID = a.bequestID and isDeleted = 0))
+                AS isCurrent from holdings a
                 JOIN bequests b on a.bequestID = b.bequestID
               WHERE a.personID = ? and a.isDeleted = 0
-              ORDER BY a.dateStarted, b.name`, arg.personID,
+              ORDER BY NOT isCurrent, a.dateStarted, b.name`, arg.personID,
     (err, bequests) => {
       win.webContents.send('getPersonBequestsResponse', bequests)
     })
@@ -127,11 +130,13 @@ export function ipcDatabase(ipcMain, win, db) {
   });
   
   ipcMain.on('getPersonHoldings', (event, arg) => {
-    db.all(`SELECT * FROM holdings a
+    db.all(`SELECT *, (a.dateStarted == (SELECT MAX(dateStarted) FROM holdings
+                  WHERE bequestID = a.bequestID and isDeleted = 0))
+                AS isCurrent FROM holdings a
               JOIN bequests b on a.bequestID = b.bequestID
               JOIN people c on a.personID = c.personID
               where c.personID = ? AND a.isDeleted = 0
-              order by a.dateStarted, b.name`, arg,
+              order by NOT isCurrent, a.dateStarted, b.name`, arg,
             (err, holdings) => {
               win.webContents.send('getPersonHoldingsResponse', holdings)
             });
