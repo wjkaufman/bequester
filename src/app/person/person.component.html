@@ -53,4 +53,21 @@
   </div>
   
   <app-holding-list [personID]="person.personID"></app-holding-list>
+  
+  <br><br><br>
+  
+  <h5>List of {{ person.firstname }}'s bequests</h5>
+  <div *ngIf="bequestList">
+    <ol>
+      <li *ngFor="let b of bequestList" [class.notCurrent]="!b.isCurrent">
+        <b>{{ b.name }}</b><span *ngIf="b.desc">: {{ b.desc }}</span>
+        <span *ngIf="b.holdings">
+          (<span *ngFor="let h of b.holdings">{{ h.lastname }}
+            '{{ h.gradYear.toString().substring(2,4) }}<span
+                *ngIf="h != b.holdings[b.holdings.length - 1]">, </span>
+          </span>)
+        </span>
+      </li>
+    </ol>
+  </div>
 </div>

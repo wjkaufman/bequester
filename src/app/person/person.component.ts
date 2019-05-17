@@ -18,6 +18,8 @@ export class PersonComponent implements OnChanges {
   @ViewChild(HoldingListComponent) holdingList;
   editedPerson: Person;
   editing = false;
+  // for displaying all bequests and lineages for each bequest
+  bequestList: any[];
   
   onEdit(): void {
     this.editing = !this.editing;
@@ -37,12 +39,33 @@ export class PersonComponent implements OnChanges {
       })
   }
   
+  onGetBequestList(): void {
+    this.personService.getPersonBequests(this.person)
+      .then((res) => {
+        this.bequestList = res;
+        // now get lineages for each bequest
+        for (let b of this.bequestList) {
+          this.holdingService.getBequestHoldings(b.bequestID)
+            .then((res) => {
+              for (var j=0, b; b = this.bequestList[j]; j++) {
+                if (b.bequestID == res[0].bequestID) {
+                   this.bequestList[j].holdings = res;
+                }
+              }
+            })
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+  }
+  
   constructor(private personService: PersonService,
               private holdingService: HoldingService) { }
 
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
-    // TODO fix this, figure out how to make the new holding creator
-    // go away when you click away from the current bequest
+    this.onGetBequestList();
+    
     if (this.holdingList) {
       this.holdingList.creatingHolding = false;
     }

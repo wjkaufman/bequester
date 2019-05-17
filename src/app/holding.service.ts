@@ -11,7 +11,7 @@ export class HoldingService {
   
   async getBequestHoldings(bequestID: number) {
     return new Promise<Holding[]>((resolve, reject) => {
-      this.ipc.once('getBequestHoldingsResponse', (event, arg) => {
+      this.ipc.once('getBequestHoldingsResponse' + bequestID, (event, arg) => {
         let holdings: Holding[] = [];
         for (let h of arg) {
           holdings.push(new Holding(h));

@@ -27,7 +27,7 @@
           <select class="form-control" name="person"
           required [(ngModel)]="editedHolding.personID" #person="ngModel">
             <option *ngFor="let person of people" [value]="person.personID">
-              {{person.firstname}} {{person.lastname}} ({{person.gradYear}})
+              {{p.lastname}}, {{p.firstname}} ({{p.gradYear}})
             </option>
           </select>
         </label>
